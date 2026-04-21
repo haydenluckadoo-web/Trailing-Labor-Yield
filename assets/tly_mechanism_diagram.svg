@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="320" viewBox="0 0 1400 320" role="img" aria-labelledby="title desc">
+  <title id="title">Trailing Labor Yield mechanism diagram</title>
+  <desc id="desc">Flow from active pay to historical pay pool, active bonus accrual, exit snapshot, and tapered legacy payout, with a feedback loop from active bonus accrual back into the historical pay pool.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#1f2937" />
+    </marker>
+    <style>
+      .title { font: 700 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111827; }
+      .subtitle { font: 400 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #4b5563; }
+      .label { font: 600 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111827; }
+      .small { font: 400 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #374151; }
+      .box { stroke: #1f2937; stroke-width: 2.5; rx: 10; ry: 10; }
+      .line { fill: none; stroke: #1f2937; stroke-width: 3; marker-end: url(#arrow); }
+      .loop { fill: none; stroke: #1f2937; stroke-width: 3; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="320" fill="#ffffff" />
+
+  <text x="48" y="48" class="title">Trailing Labor Yield (TLY)</text>
+  <text x="48" y="74" class="subtitle">Phase 1 mechanism sketch, v0.9 public draft</text>
+
+  <rect class="box" x="48" y="122" width="220" height="86" fill="#dff6ee" />
+  <text x="158" y="160" text-anchor="middle" class="label">Active Pay</text>
+  <text x="158" y="184" text-anchor="middle" class="small">Base compensation each epoch</text>
+
+  <rect class="box" x="320" y="122" width="250" height="86" fill="#e6f0ff" />
+  <text x="445" y="160" text-anchor="middle" class="label">Historical Pay Pool</text>
+  <text x="445" y="184" text-anchor="middle" class="small">Cumulative pay plus settled bonus</text>
+
+  <rect class="box" x="622" y="122" width="250" height="86" fill="#fff4d6" />
+  <text x="747" y="160" text-anchor="middle" class="label">Active Bonus Accrual</text>
+  <text x="747" y="184" text-anchor="middle" class="small">Small share of historical pay</text>
+
+  <rect class="box" x="924" y="122" width="200" height="86" fill="#fde7e7" />
+  <text x="1024" y="160" text-anchor="middle" class="label">Exit Snapshot</text>
+  <text x="1024" y="184" text-anchor="middle" class="small">Final active bonus locked in</text>
+
+  <rect class="box" x="1176" y="122" width="176" height="86" fill="#ede9fe" />
+  <text x="1264" y="160" text-anchor="middle" class="label">Tapered Legacy</text>
+  <text x="1264" y="184" text-anchor="middle" class="small">Pull claim over fixed duration</text>
+
+  <path class="line" d="M268 165 H320" />
+  <path class="line" d="M570 165 H622" />
+  <path class="line" d="M872 165 H924" />
+  <path class="line" d="M1124 165 H1176" />
+
+  <path class="loop" d="M747 210 C747 262, 445 262, 445 210" />
+  <text x="596" y="286" text-anchor="middle" class="small">Settled bonus feeds back into the historical pay pool</text>
+</svg>
