@@ -26,7 +26,7 @@ Trailing Labor Yield (TLY): a stablecoin-based contributor compensation mechanis
 
 ## Suggested Front Page Shape
 
-If you promote this package to the repo root, the front page should make four things immediately visible:
+This repo root should make four things immediately visible:
 
 1. what TLY is;
 2. where the white paper lives;
@@ -41,7 +41,8 @@ If you promote this package to the repo root, the front page should make four th
 - `dao/`
 - `release/phase1_v0.9_public_draft/`
 
-If you want the cleanest public-facing repo root, use the README in this package as the root README and keep this release package in place as the archive of the first wave.
+This layout keeps the publication layer visible without hiding the simulator or
+the Solidity reference implementation.
 
 ## Suggested First Paragraph For The Repo Root
 

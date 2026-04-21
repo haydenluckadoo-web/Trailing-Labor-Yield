@@ -66,7 +66,7 @@ from governance-asset dilution.
 
 ## Mechanism At A Glance
 
-![TLY mechanism diagram](../assets/tly_mechanism_diagram.svg)
+![TLY mechanism diagram](figures/tly_mechanism_diagram.svg)
 
 ## A Worked Example
 

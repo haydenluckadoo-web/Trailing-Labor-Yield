@@ -8,7 +8,7 @@ The current local environment does not have `pandoc`, `pdflatex`, `xelatex`, or 
 
 Use:
 
-- `docs/tly_white_paper_v0.9_public_draft_pdf_source.md`
+- `paper/tly_white_paper_v0.9_public_draft_pdf_source.md`
 
 That file swaps the Mermaid block for a static SVG reference so the mechanism diagram is more reliable in print/export workflows.
 
@@ -16,7 +16,7 @@ That file swaps the Mermaid block for a static SVG reference so the mechanism di
 
 Save the exported PDF as:
 
-- `docs/tly_white_paper_v0.9_public_draft.pdf`
+- `paper/tly_white_paper_v0.9_public_draft.pdf`
 
 ## Suggested Export Methods
 

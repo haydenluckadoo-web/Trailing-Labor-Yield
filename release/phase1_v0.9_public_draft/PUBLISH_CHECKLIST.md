@@ -17,7 +17,7 @@
 
 ## Before Push
 
-- [ ] Export `docs/tly_white_paper_v0.9_public_draft.pdf`.
+- [ ] Export `paper/tly_white_paper_v0.9_public_draft.pdf`.
 - [ ] Add the PDF to the repo beside the Markdown source.
 - [ ] Decide whether this package README becomes the repo-root README.
 - [ ] Check that links render correctly on GitHub.

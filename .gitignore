@@ -1,0 +1,11 @@
+.DS_Store
+
+# Foundry dependencies and build outputs
+dao/lib/
+dao/out/
+dao/cache/
+
+# Local Python/Streamlit artifacts
+.venv/
+__pycache__/
+*.pyc

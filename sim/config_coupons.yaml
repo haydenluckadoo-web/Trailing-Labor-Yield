@@ -1,0 +1,30 @@
+horizon_periods: 80
+
+initial_workers: 1000
+worker_growth: 0.0
+
+wage_per_worker: 80000.0
+wage_growth: 0.0
+
+accrual_share: 0.05
+coupon_per_unit: 1.0
+
+default_hazard: 0.02
+discount_rate: 0.04
+
+runoff_components:
+  mortality: 0.002
+  contractual_redemption: 0.058
+  legal_sunset: 0.020
+
+issue_price_mode: fair
+fixed_issue_price: 10.0
+
+initial_claim_units: 0.0
+cohort_plot_top_n: 12
+
+# Optional diagnostic only:
+# If operating margin is 10%, operating cash flow is modeled as 10% of payroll.
+operating_margin_on_payroll: 0.10
+
+output_dir: sim/output/phase1_baseline

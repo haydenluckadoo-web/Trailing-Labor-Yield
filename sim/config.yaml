@@ -1,0 +1,25 @@
+horizon_periods: 80
+
+initial_workers: 1000
+worker_growth: .02
+
+wage_per_worker: 80000.0
+wage_growth: 0.02
+
+accrual_share: 0.01
+payout_rate_on_balance: 0.08
+
+default_hazard: 0.02
+discount_rate: 0.04
+
+runoff_components:
+  mortality: 0.002
+  contractual_redemption: 0.058
+  legal_sunset: 0.020
+
+initial_claim_balance: 0.0
+cohort_plot_top_n: 12
+
+operating_margin_on_payroll: 0.10
+
+output_dir: sim/output/dollar_state_baseline
