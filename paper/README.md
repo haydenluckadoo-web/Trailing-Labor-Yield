@@ -14,5 +14,7 @@ This folder contains the public-facing TLY publication documents.
   - objection-handling and implementation-risk memo
 - `tly_visual_diagrams.md`
   - additional diagram source notes
-- `figures/tly_mechanism_diagram.svg`
+- `figures/tly_mechanism_diagram.png`
   - static mechanism figure for GitHub and PDF export
+- `figures/tly_mechanism_diagram_source.html`
+  - HTML/CSS source used to render the publication figure

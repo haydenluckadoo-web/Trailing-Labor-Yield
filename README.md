@@ -30,7 +30,7 @@ implementation remain visible and close at hand.
   and
   [dao/contracts/TreasuryDistributor.sol](dao/contracts/TreasuryDistributor.sol)
 
-![TLY mechanism diagram](paper/figures/tly_mechanism_diagram.svg)
+![TLY mechanism diagram](paper/figures/tly_mechanism_diagram.png)
 
 ## Repository Layout
 
