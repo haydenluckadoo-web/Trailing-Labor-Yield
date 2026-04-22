@@ -66,7 +66,13 @@ from governance-asset dilution.
 
 ## Mechanism At A Glance
 
-![TLY mechanism diagram](figures/tly_mechanism_diagram.png)
+TLY can be stated in three steps:
+
+1. While active, the contributor receives base pay and earns an active bonus.
+2. On exit, the protocol snapshots the contributor's final active bonus as the
+   initial trailing amount.
+3. In legacy state, that amount is paid out through a tapering claim schedule
+   over a fixed duration.
 
 ## A Worked Example
 

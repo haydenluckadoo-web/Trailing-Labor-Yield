@@ -15,17 +15,13 @@ This package contains the publication assets for the TLY Phase 1 release.
 - `paper/tly_white_paper_v0.9_public_draft.md`
   - Canonical Markdown white paper.
 - `paper/tly_white_paper_v0.9_public_draft_pdf_source.md`
-  - PDF-friendly Markdown variant with a static mechanism diagram.
+  - PDF-friendly Markdown variant of the white paper.
 - `paper/tly_one_page_summary.md`
   - One-page summary.
 - `paper/tly_faq_objections.md`
   - FAQ and objections memo.
 - `paper/tly_visual_diagrams.md`
   - Diagram notes and additional Mermaid figures.
-- `paper/figures/tly_mechanism_diagram.png`
-  - Static mechanism diagram for GitHub, decks, and PDF export.
-- `paper/figures/tly_mechanism_diagram_source.html`
-  - HTML/CSS source used to render the static diagram.
 - `release/phase1_v0.9_public_draft/launch/hacker_news_post.md`
   - Hacker News launch copy.
 - `release/phase1_v0.9_public_draft/launch/reddit_launch_posts.md`

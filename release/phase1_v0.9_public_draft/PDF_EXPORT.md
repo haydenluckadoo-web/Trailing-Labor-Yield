@@ -10,7 +10,7 @@ Use:
 
 - `paper/tly_white_paper_v0.9_public_draft_pdf_source.md`
 
-That file swaps the Mermaid block for a static SVG reference so the mechanism diagram is more reliable in print/export workflows.
+That file is the publication-ready Markdown source for PDF export.
 
 ## Recommended Output File
 
@@ -28,7 +28,6 @@ Save the exported PDF as:
 Before committing the PDF, verify:
 
 - equations render cleanly;
-- the mechanism diagram appears as a graphic, not raw source;
 - tables are not clipped;
 - page breaks feel intentional;
 - links remain legible;

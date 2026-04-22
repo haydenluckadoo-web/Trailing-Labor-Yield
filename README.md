@@ -29,8 +29,10 @@ implementation remain visible and close at hand.
   [dao/contracts/ContributorRegistry.sol](dao/contracts/ContributorRegistry.sol)
   and
   [dao/contracts/TreasuryDistributor.sol](dao/contracts/TreasuryDistributor.sol)
-
-![TLY mechanism diagram](paper/figures/tly_mechanism_diagram.png)
+- Core mechanism, in one line:
+  while active, contributors receive base pay plus an active bonus; on exit,
+  the final active bonus is snapshotted; in legacy state, that amount tapers
+  into the trailing payout.
 
 ## Repository Layout
 
@@ -39,7 +41,7 @@ implementation remain visible and close at hand.
   - PDF-friendly export source
   - one-page summary
   - FAQ and objections
-  - mechanism diagram and publication graphics
+  - publication documents
 - `sim/`
   - Python simulator and Streamlit entrypoint
 - `dao/`

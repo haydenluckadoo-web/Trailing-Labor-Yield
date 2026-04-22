@@ -11,7 +11,6 @@
 - [x] Include the white paper Markdown source.
 - [x] Include the one-page summary.
 - [x] Include the FAQ and objections memo.
-- [x] Include one static mechanism diagram.
 - [x] Include discussion-launch draft copy.
 - [x] Include a release manifest and GitHub setup notes.
 
@@ -21,7 +20,6 @@
 - [ ] Add the PDF to the repo beside the Markdown source.
 - [ ] Decide whether this package README becomes the repo-root README.
 - [ ] Check that links render correctly on GitHub.
-- [ ] Confirm the diagram renders crisply on GitHub.
 
 ## GitHub Launch
 
