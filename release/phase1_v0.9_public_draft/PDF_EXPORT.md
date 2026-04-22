@@ -1,8 +1,11 @@
 # PDF Export Notes
 
-This package includes everything needed for the PDF export except the final PDF file itself.
+This package now includes a checked-in PDF artifact:
 
-The current local environment does not have `pandoc`, `pdflatex`, `xelatex`, or `wkhtmltopdf`, so the last step still needs to be done with a local editor or browser print flow.
+- `paper/tly_white_paper_v0.9_public_draft.pdf`
+
+It can be regenerated locally without `pandoc` or LaTeX by rendering the
+publication-ready Markdown source to HTML and printing through headless Chrome.
 
 ## Recommended Source File
 
@@ -18,7 +21,30 @@ Save the exported PDF as:
 
 - `paper/tly_white_paper_v0.9_public_draft.pdf`
 
-## Suggested Export Methods
+## Included Export Script
+
+Run:
+
+```bash
+uv run --with markdown --with latex2mathml \
+  python release/phase1_v0.9_public_draft/scripts/export_white_paper.py
+```
+
+This generates:
+
+- `paper/tly_white_paper_v0.9_public_draft.pdf`
+- `paper/tly_white_paper_v0.9_public_draft_export.html` as an intermediate
+  export file
+
+The HTML intermediate is ignored by `.gitignore` and does not need to be
+committed.
+
+## Export Requirements
+
+- `uv`
+- Google Chrome installed at `/Applications/Google Chrome.app`
+
+## Fallback Export Methods
 
 1. Open the PDF-source Markdown file in a Markdown app with math support and export to PDF.
 2. Or push the repo, open the PDF-source file on GitHub, verify rendering, and print to PDF from the browser.

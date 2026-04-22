@@ -4,6 +4,8 @@ This folder contains the public-facing TLY publication documents.
 
 ## Files
 
+- `tly_white_paper_v0.9_public_draft.pdf`
+  - checked-in PDF artifact for non-technical readers and reviewers
 - `tly_white_paper_v0.9_public_draft.md`
   - canonical Markdown white paper
 - `tly_white_paper_v0.9_public_draft_pdf_source.md`

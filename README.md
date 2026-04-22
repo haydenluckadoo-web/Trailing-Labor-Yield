@@ -3,6 +3,10 @@
 Version: v0.9 public draft  
 Status: mechanism design proposal
 
+**Warning:** The Solidity contracts in this repository are unaudited reference
+contracts. Do not route real capital through them, and do not treat them as
+production-ready systems.
+
 Trailing Labor Yield (TLY) is a stablecoin-denominated contributor
 compensation mechanism for DAOs, protocol companies, cooperatives, and other
 treasury-backed organizations. It combines normal active pay, a small
@@ -17,6 +21,8 @@ implementation remain visible and close at hand.
 
 - White paper:
   [paper/tly_white_paper_v0.9_public_draft.md](paper/tly_white_paper_v0.9_public_draft.md)
+- White paper PDF:
+  [paper/tly_white_paper_v0.9_public_draft.pdf](paper/tly_white_paper_v0.9_public_draft.pdf)
 - PDF export source:
   [paper/tly_white_paper_v0.9_public_draft_pdf_source.md](paper/tly_white_paper_v0.9_public_draft_pdf_source.md)
 - One-page summary:
@@ -69,7 +75,10 @@ Phase 1 is deliberately narrow:
 ## Notes
 
 - The canonical publication draft is `v0.9 public draft`.
-- The PDF binary is not checked in yet; export instructions live at
+- The PDF binary is checked in. Regeneration instructions live at
   [release/phase1_v0.9_public_draft/PDF_EXPORT.md](release/phase1_v0.9_public_draft/PDF_EXPORT.md).
 - The simulator and Solidity code here are reference implementations for the
   mechanism, not production-ready audited systems.
+- Feedback is most useful on the math, simulator assumptions, and EVM claim
+  architecture. See [CONTRIBUTING.md](CONTRIBUTING.md). High-level critique
+  belongs in GitHub Discussions; scoped bugs belong in Issues.

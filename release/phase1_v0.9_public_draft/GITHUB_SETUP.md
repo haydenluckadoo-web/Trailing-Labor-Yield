@@ -33,8 +33,15 @@ This repo root should make four things immediately visible:
 3. where the simulator lives;
 4. where the Solidity reference implementation lives.
 
+It should also make two governance signals obvious:
+
+1. the contracts are unaudited reference contracts;
+2. critique is welcome through GitHub Discussions and scoped Issues.
+
 ## Suggested Top-Level Repo Layout
 
+- `LICENSE`
+- `CONTRIBUTING.md`
 - `README.md`
 - `paper/`
 - `sim/`
@@ -51,10 +58,19 @@ Trailing Labor Yield (TLY) is a stablecoin-denominated contributor compensation 
 ## Suggested Pinned Links
 
 - White paper
+- White paper PDF
 - One-page summary
 - FAQ
 - Simulator
 - Solidity contracts
+
+## Repository Settings To Enable
+
+- Turn on **GitHub Discussions** for mechanism-design, governance, legal-
+  structure, and economic critique.
+- Leave **Issues** enabled for concrete bugs in the paper, simulator, or
+  contracts.
+- Add the repo description and topics before the first public link goes out.
 
 ## Suggested Release Tag
 

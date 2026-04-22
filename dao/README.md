@@ -1,5 +1,9 @@
 # TLY DAO Contracts
 
+**Warning:** These Solidity contracts are unaudited reference contracts for the
+TLY mechanism. Do not route real capital through them, do not deploy them as
+production systems, and do not treat this folder as audit-cleared code.
+
 This folder contains an initial Solidity architecture for the Trailing Labor
 Yield (TLY) compensation model modeled in `sim/app.py` and
 `sim/baseline_dollars.py`.

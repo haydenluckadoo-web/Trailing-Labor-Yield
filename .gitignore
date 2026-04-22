@@ -9,3 +9,6 @@ dao/cache/
 .venv/
 __pycache__/
 *.pyc
+
+# Generated publication export intermediates
+paper/*_export.html
