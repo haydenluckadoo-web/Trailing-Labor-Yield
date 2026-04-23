@@ -5,10 +5,9 @@ Companion to the TLY white paper
 
 ## Thesis
 
-Trailing Labor Yield (TLY) is a compensation architecture for programmable
-deferred compensation. It is not a new economic species and not a magic
-replacement for equity, token vesting, phantom equity, or a normal deferred
-bonus pool.
+Trailing Labor Yield (TLY) is a compensation architecture built from familiar
+economic components. Its novelty is architectural: compensated labor history
+determines a finite, tapering post-exit cash-flow claim.
 
 The narrower claim is more useful: TLY gives organizations a way to offer
 stablecoin-denominated economic continuation after exit without making

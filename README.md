@@ -7,22 +7,28 @@ Status: mechanism design proposal
 contracts. Do not route real capital through them, and do not treat them as
 production-ready systems.
 
-Trailing Labor Yield (TLY) is a compensation architecture for programmable
-deferred compensation. It gives contributors a stablecoin-denominated trailing
-claim after exit without making governance tokens carry the whole compensation
-burden.
+Trailing Labor Yield (TLY) is a compensation architecture built from familiar
+economic components: deferred compensation, phantom participation, contingent
+benefits, and runoff liabilities. Its novelty is architectural: compensated
+labor history determines a finite, tapering post-exit cash-flow claim.
+
+The stablecoin- and EVM-based design in this repository is a reference
+implementation of that broader structure. It is a strong first context because
+stablecoin treasuries, programmable settlement, and per-wallet claim state fit
+the mechanism naturally.
 
 The short version: active contributors receive normal pay plus a small bonus
-tied to realized compensation history; on exit, a defined snapshot becomes a
-tapering trailing payout. The claim is easy to describe. Funding it is the hard
-part.
+tied to a historical compensation base; on exit, a defined snapshot becomes a
+tapering trailing payout. The claim is easy to describe. Funding, governing,
+and legally wrapping it are the hard parts.
 
 ## What This Repository Contains
 
-- `paper/`: the public manuscript, PDF source, one-page summary, FAQ, and
-  diagrams.
-- `sim/`: economic model, baseline scenarios, and Streamlit dashboard.
-- `dao/`: Solidity reference contracts, Foundry configuration, and tests.
+- `paper/`: concept-first manuscript, formal mechanism sections, PDF source,
+  one-page summary, FAQ, and diagrams.
+- `sim/`: burden-analysis model, baseline scenarios, and Streamlit dashboard.
+- `dao/`: Solidity reference implementation scaffolding, Foundry configuration,
+  and tests.
 - `release/phase1_v0.9_public_draft/`: launch notes, checklist, manifest, and
   PDF export instructions.
 
@@ -61,7 +67,7 @@ For builders:
 ```text
 active contributor
   -> base pay + active bonus
-  -> realized-compensation history grows
+  -> historical compensation base grows
   -> exit snapshot
   -> legacy runoff claim
   -> taper until expiration
@@ -95,6 +101,10 @@ stress treasury state
   affordable.
 - TLY is not a substitute for treasury discipline, reserve policy, anti-gaming
   rules, or jurisdiction-specific legal work.
+- The simulator models burden dynamics, not legal enforceability or solvency
+  guarantees.
+- The reference contracts are scaffolding for the mechanism, not a complete
+  production compensation system.
 - The reference contracts do not implement every production recommendation,
   especially realized-compensation averaging and full legal-wrapper semantics.
 
@@ -121,7 +131,8 @@ Phase 1 is deliberately narrow:
 - The PDF binary is checked in. Regeneration instructions live at
   [release/phase1_v0.9_public_draft/PDF_EXPORT.md](release/phase1_v0.9_public_draft/PDF_EXPORT.md).
 - The simulator and Solidity code here are reference implementations for the
-  mechanism, not production-ready audited systems.
+  mechanism, not production-ready audited systems or complete deployment
+  packages.
 - Feedback is most useful on the math, simulator assumptions, treasury-stress
   semantics, governance wrapper, and EVM claim architecture. See
   [CONTRIBUTING.md](CONTRIBUTING.md). High-level critique belongs in GitHub

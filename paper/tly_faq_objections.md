@@ -5,10 +5,11 @@ Companion to the TLY white paper
 
 ## Is TLY supposed to be a brand-new economic category?
 
-No. The revised claim is narrower. TLY is a compensation architecture for
-programmable deferred compensation. It combines familiar pieces: active pay,
-bonus accrual, an exit snapshot, trailing payout, taper, term, treasury stress
-rules, and governance controls.
+No. TLY is a compensation architecture for programmable deferred compensation.
+It combines familiar pieces: active pay, bonus accrual, an exit snapshot,
+trailing payout, taper, term, treasury stress rules, and governance controls.
+The novelty is architectural: compensated labor history determines a finite,
+tapering post-exit cash-flow claim.
 
 The useful part is the package, not the mythology.
 
@@ -81,26 +82,27 @@ terminal active bonus. Additional defenses include notice periods, locked or
 reviewed base pay near departure, governance review for exceptional changes,
 and snapshot-growth limits relative to trailing averages.
 
-## Why not cap the historical pay pool?
+## Why not cap the historical compensation base?
 
-TLY intentionally rewards long tenure. Capping the historical pay pool weakens
-the retention mechanism. Aggregate stability comes from low accrual, payroll
-growth, fixed duration, and tapering legacy claims. Governance should focus on
-preventing terminal manipulation rather than clipping legitimate tenure.
+TLY intentionally rewards long tenure. Capping the historical compensation base
+weakens the retention mechanism. Aggregate stability comes from low accrual,
+payroll growth, fixed duration, and tapering legacy claims. Governance should
+focus on preventing terminal manipulation rather than clipping legitimate
+tenure.
 
 ## What if turnover is high?
 
 High turnover creates more alumni, but it also reduces average active tenure
-and therefore lowers average historical pay pools. In the simulator, high
-turnover does not mechanically explode the liability because fewer contributors
-remain active long enough to accumulate large active bonuses. Parameters still
-matter and must be simulated.
+and therefore lowers average historical compensation bases. In the simulator,
+high turnover does not mechanically explode the liability because fewer
+contributors remain active long enough to accumulate large active bonuses.
+Parameters still matter and must be simulated.
 
 ## What if turnover is low?
 
 Low turnover can create larger individual long-tenure claims because
-contributors build larger historical pay pools. But fewer contributors enter
-legacy status. This is the intended retention tradeoff.
+contributors build larger historical compensation bases. But fewer contributors
+enter legacy status. This is the intended retention tradeoff.
 
 ## Can TLY work for pre-revenue startups?
 

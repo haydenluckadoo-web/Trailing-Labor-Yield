@@ -37,8 +37,8 @@ feature of this minimal reference implementation.
 
 - `contracts/ContributorRegistry.sol`
   - Owns contributor state.
-  - Tracks active/legacy status, base pay, historical pay pool, last active
-    bonus, and legacy claim checkpoints.
+  - Tracks active/legacy status, base pay, historical compensation base
+    (`historicalPayPool`), last active bonus, and legacy claim checkpoints.
   - Uses OpenZeppelin `AccessControl`.
   - `POD_ADMIN_ROLE` can add contributors, remove contributors, and update base
     pay.
