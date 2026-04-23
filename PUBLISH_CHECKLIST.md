@@ -23,7 +23,7 @@
 
 - [x] Export `paper/tly_white_paper_v0.9_public_draft.pdf`.
 - [x] Add the PDF to the repo beside the Markdown source.
-- [ ] Decide whether this package README becomes the repo-root README.
+- [x] Use this package README as the repo-root README.
 - [ ] Check that links render correctly on GitHub.
 - [ ] Enable GitHub Discussions in repo settings.
 

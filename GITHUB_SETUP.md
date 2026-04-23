@@ -49,10 +49,16 @@ It should also make four governance signals obvious:
 - `paper/`
 - `sim/`
 - `dao/`
-- `release/phase1_v0.9_public_draft/`
+- `launch/`
+- `scripts/`
+- `GITHUB_SETUP.md`
+- `PDF_EXPORT.md`
+- `PUBLISH_CHECKLIST.md`
+- `RELEASE_MANIFEST.md`
 
-This layout keeps the publication layer visible without hiding the simulator or
-the Solidity reference implementation.
+This layout treats the release folder as the repository root. The publication
+assets stay visible without hiding the simulator or the Solidity reference
+implementation inside a second nested release package.
 
 ## Suggested First Paragraph For The Repo Root
 

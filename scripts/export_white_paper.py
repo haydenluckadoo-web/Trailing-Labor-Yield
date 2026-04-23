@@ -11,7 +11,7 @@ import markdown
 from latex2mathml.converter import convert as latex_to_mathml
 
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "paper" / "tly_white_paper_v0.9_public_draft_pdf_source.md"
 HTML_OUT = ROOT / "paper" / "tly_white_paper_v0.9_public_draft_export.html"
 PDF_OUT = ROOT / "paper" / "tly_white_paper_v0.9_public_draft.pdf"

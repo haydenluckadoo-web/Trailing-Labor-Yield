@@ -1,6 +1,6 @@
 # PDF Export Notes
 
-This package now includes a checked-in PDF artifact:
+This repository includes a checked-in PDF artifact:
 
 - `paper/tly_white_paper_v0.9_public_draft.pdf`
 
@@ -27,7 +27,7 @@ Run:
 
 ```bash
 uv run --with markdown --with latex2mathml \
-  python release/phase1_v0.9_public_draft/scripts/export_white_paper.py
+  python scripts/export_white_paper.py
 ```
 
 This generates:

@@ -1,13 +1,13 @@
 # Release Manifest
 
-This package contains the publication assets for the TLY Phase 1 release. The
+This repository contains the publication assets for the TLY Phase 1 release. The
 draft frames TLY as a programmable deferred-compensation architecture with
 three layers: Pure TLY, the Stress Layer, and the Governance Wrapper.
 
 ## Included
 
 - `LICENSE`
-  - MIT license for the publication package, simulator, and reference code in this repo.
+  - MIT license for the publication materials, simulator, and reference code in this repo.
 - `CONTRIBUTING.md`
   - Guidance for Discussions, Issues, and the kinds of critique this draft is seeking.
 - `README.md`
@@ -18,7 +18,7 @@ three layers: Pure TLY, the Stress Layer, and the Governance Wrapper.
   - Final pre-publication and launch checklist.
 - `PDF_EXPORT.md`
   - Instructions for generating the white paper PDF.
-- `release/phase1_v0.9_public_draft/scripts/export_white_paper.py`
+- `scripts/export_white_paper.py`
   - Local export utility for regenerating the checked-in PDF artifact.
 - `paper/tly_white_paper_v0.9_public_draft.md`
   - Canonical Markdown white paper.
@@ -38,14 +38,14 @@ three layers: Pure TLY, the Stress Layer, and the Governance Wrapper.
   - Reproducible simulator dependency manifest.
 - `sim/uv.lock`
   - Locked simulator environment for `uv sync`.
-- `release/phase1_v0.9_public_draft/launch/hacker_news_post.md`
+- `launch/hacker_news_post.md`
   - Hacker News launch copy.
-- `release/phase1_v0.9_public_draft/launch/reddit_launch_posts.md`
+- `launch/reddit_launch_posts.md`
   - Reddit launch copy.
-- `release/phase1_v0.9_public_draft/launch/long_form_launch_post.md`
+- `launch/long_form_launch_post.md`
   - Longer-form launch note for Mirror, Substack, Notion, or a blog.
 
-## Referenced From The Main Repo
+## Repository Directories
 
 - `sim/`
   - Python simulator and Streamlit dashboard for burden and stress-layer
