@@ -10,7 +10,7 @@ This file is a practical setup guide for making GitHub the canonical public home
 
 ## Suggested Repository Description
 
-Trailing Labor Yield (TLY): a programmable deferred-compensation architecture for stablecoin-denominated contributor upside, with a white paper, simulator, and EVM reference contracts.
+Trailing Labor Yield (TLY): a historical-compensation-indexed trailing labor claim, with a white paper, simulator, and EVM reference contracts.
 
 ## Suggested Topics
 
@@ -56,7 +56,7 @@ the Solidity reference implementation.
 
 ## Suggested First Paragraph For The Repo Root
 
-Trailing Labor Yield (TLY) is a compensation architecture for programmable deferred compensation. It gives contributors a stablecoin-denominated trailing claim after exit without making governance tokens carry the whole compensation burden. This repository contains the public white paper, one-page summary, FAQ, simulator, and EVM reference contracts.
+Trailing Labor Yield (TLY) is a historical-compensation-indexed trailing labor claim: a compensation architecture in which past compensated contribution determines a finite, tapering stream of post-exit cash flows. This repository contains the public white paper, one-page summary, FAQ, simulator, and EVM reference contracts.
 
 ## Suggested Pinned Links
 

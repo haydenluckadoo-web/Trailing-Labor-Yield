@@ -7,15 +7,16 @@ Status: mechanism design proposal
 contracts. Do not route real capital through them, and do not treat them as
 production-ready systems.
 
-Trailing Labor Yield (TLY) is a compensation architecture built from familiar
-economic components: deferred compensation, phantom participation, contingent
-benefits, and runoff liabilities. Its novelty is architectural: compensated
-labor history determines a finite, tapering post-exit cash-flow claim.
+Trailing Labor Yield (TLY) is a historical-compensation-indexed trailing labor
+claim: a compensation architecture in which past compensated contribution
+determines a finite, tapering stream of post-exit cash flows.
 
 The stablecoin- and EVM-based design in this repository is a reference
-implementation of that broader structure. It is a strong first context because
-stablecoin treasuries, programmable settlement, and per-wallet claim state fit
-the mechanism naturally.
+implementation of that broader structure. Its components resemble familiar
+instruments, including deferred compensation, phantom participation, contingent
+benefits, and runoff liabilities. The novelty is the architecture that links
+compensated labor history, a defined exit snapshot, finite runoff, funding
+discipline, and production governance.
 
 The short version: active contributors receive normal pay plus a small bonus
 tied to a historical compensation base; on exit, a defined snapshot becomes a

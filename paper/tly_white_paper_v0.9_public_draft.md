@@ -6,21 +6,21 @@ Repository references: `sim/`, `dao/contracts/`
 
 ## Abstract
 
-Most contributor upside ends up in one of two places: illiquid equity that may
-never turn into usable money, or volatile tokens that workers sell as soon as
-they need to pay rent. Trailing Labor Yield (TLY) is not a new economic
-primitive. Its components resemble deferred compensation, phantom
-participation, contingent benefits, and runoff liabilities. Its novelty is
-architectural: it links compensated labor history to a finite, tapering
-post-exit cash-flow claim. More generally, TLY can be understood as a
-historical-compensation-indexed trailing labor claim: a structure in which past
-compensated contribution determines a finite stream of post-exit cash flows.
-The stablecoin- and EVM-based design presented here is a reference
-implementation of that structure. This first paper is concept-first, with
-formal mechanism sections where the mechanism needs them and practical
-deployment layers where treasury, governance, and legal choices change the
-worker-side promise. TLY is not appropriate for every organization; it needs
-reserve planning, compensation discipline, and real legal review.
+Trailing Labor Yield (TLY) is a historical-compensation-indexed trailing labor
+claim: a compensation architecture in which past compensated contribution
+determines a finite, tapering stream of post-exit cash flows. Its components
+resemble familiar instruments: deferred compensation, phantom participation,
+contingent benefits, and runoff liabilities. Its novelty is architectural. It
+links compensated labor history, a defined exit snapshot, finite runoff, funding
+discipline, and production governance into one modelable structure. The
+stablecoin- and EVM-based design presented here is a reference implementation
+of that broader structure, chosen because reserve assets, programmable
+settlement, and per-wallet claim accounting fit the mechanism naturally. This
+first paper is concept-first, with formal mechanism sections where the
+mechanism needs them and practical deployment layers where treasury,
+governance, and legal choices change the worker-side promise. TLY is not
+appropriate for every organization; it needs reserve planning, compensation
+discipline, and real legal review.
 
 ## Executive Summary
 
@@ -54,7 +54,7 @@ specific compensation structure: compensated labor history determines a finite,
 tapering post-exit cash-flow claim. That structure can be analyzed apart from
 any one implementation, but the stablecoin/EVM version is a strong first
 deployment surface because programmable settlement, reserve assets, and
-per-wallet claim state fit the mechanism naturally.
+per-wallet claim accounting fit the mechanism naturally.
 
 TLY is not automatically better than equity, RSUs, phantom equity, token
 vesting, or a normal deferred-bonus pool. It is most interesting where an

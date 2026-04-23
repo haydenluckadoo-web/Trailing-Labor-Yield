@@ -9,12 +9,12 @@
 ## Suggested Post Body
 
 I’ve been working on a compensation architecture called Trailing Labor Yield
-(TLY).
+(TLY): a historical-compensation-indexed trailing labor claim.
 
 The basic idea is:
 
 - contributors receive normal cash compensation while active;
-- they also accrue a small bonus tied to realized compensation history;
+- they also accrue a small bonus tied to a historical compensation base;
 - when they leave, a defined exit snapshot becomes a tapering stablecoin payout
   for a fixed duration.
 

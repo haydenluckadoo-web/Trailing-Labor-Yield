@@ -5,13 +5,15 @@ Companion to the TLY white paper
 
 ## Thesis
 
-Trailing Labor Yield (TLY) is a compensation architecture built from familiar
-economic components. Its novelty is architectural: compensated labor history
-determines a finite, tapering post-exit cash-flow claim.
+Trailing Labor Yield (TLY) is a historical-compensation-indexed trailing labor
+claim: a compensation architecture in which past compensated contribution
+determines a finite, tapering stream of post-exit cash flows.
 
-The narrower claim is more useful: TLY gives organizations a way to offer
-stablecoin-denominated economic continuation after exit without making
-governance tokens carry the whole compensation burden.
+The components are familiar: deferred compensation, phantom participation,
+contingent benefits, and runoff liabilities. The novelty is the architecture
+that links compensated labor history, a defined exit snapshot, finite runoff,
+funding discipline, and production governance. In this release, the
+stablecoin/EVM design is a reference implementation of that broader structure.
 
 ## The Problem
 
@@ -36,7 +38,7 @@ clearer departure economics than many option or token packages.
 Active contributors receive:
 
 - base pay;
-- an active bonus equal to a small share of realized compensation history.
+- an active bonus equal to a small share of the historical compensation base.
 
 When a contributor exits:
 

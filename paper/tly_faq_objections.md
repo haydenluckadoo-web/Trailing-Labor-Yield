@@ -5,11 +5,11 @@ Companion to the TLY white paper
 
 ## Is TLY supposed to be a brand-new economic category?
 
-No. TLY is a compensation architecture for programmable deferred compensation.
-It combines familiar pieces: active pay, bonus accrual, an exit snapshot,
-trailing payout, taper, term, treasury stress rules, and governance controls.
-The novelty is architectural: compensated labor history determines a finite,
-tapering post-exit cash-flow claim.
+TLY is best understood as a historical-compensation-indexed trailing labor
+claim: past compensated contribution determines a finite, tapering stream of
+post-exit cash flows. It combines familiar pieces: active pay, bonus accrual,
+an exit snapshot, trailing payout, taper, term, treasury stress rules, and
+governance controls.
 
 The useful part is the package, not the mythology.
 

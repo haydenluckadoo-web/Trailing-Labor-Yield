@@ -11,11 +11,11 @@ Trailing Labor Yield: programmable deferred comp between equity and token sell p
 ### Suggested Body
 
 I’ve published a draft compensation architecture called Trailing Labor Yield
-(TLY).
+(TLY): a historical-compensation-indexed trailing labor claim.
 
 It pays contributors in a stable treasury asset while active, adds a small
-active bonus tied to realized compensation history, and converts a defined exit
-snapshot into a tapering payout after exit. The idea is not that this is
+active bonus tied to a historical compensation base, and converts a defined
+exit snapshot into a tapering payout after exit. The idea is not that this is
 universally better than equity, phantom equity, token vesting, or a deferred
 bonus pool. The idea is narrower: make the post-exit contributor claim
 formulaic, stablecoin-denominated, and easier to model.
@@ -77,8 +77,9 @@ Could DAOs offer stablecoin upside after exit without using governance tokens?
 
 ### Suggested Body
 
-I wrote up a compensation architecture called Trailing Labor Yield (TLY) that
-tries to answer a narrow question:
+I wrote up a compensation architecture called Trailing Labor Yield (TLY), a
+historical-compensation-indexed trailing labor claim that tries to answer a
+narrow question:
 
 How do you give contributors real liquid upside without relying on illiquid
 equity or volatile token comp?
@@ -86,7 +87,7 @@ equity or volatile token comp?
 The structure is:
 
 - base pay while active;
-- a small compounding bonus tied to realized compensation history;
+- a small compounding bonus tied to a historical compensation base;
 - a defined exit snapshot;
 - a tapering payout after exit for a fixed duration.
 

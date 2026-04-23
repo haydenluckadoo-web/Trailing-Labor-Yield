@@ -1,9 +1,10 @@
 # Long-Form Launch Post
 
-Trailing Labor Yield (TLY) is a compensation architecture for programmable
-deferred compensation. It is meant for organizations that want a middle path
-between illiquid equity and governance-token compensation without pretending
-that a clean formula funds itself.
+Trailing Labor Yield (TLY) is a historical-compensation-indexed trailing labor
+claim: a compensation architecture in which past compensated contribution
+determines a finite, tapering stream of post-exit cash flows. It is meant for
+organizations that want a middle path between illiquid equity and governance-
+token compensation without pretending that a clean formula funds itself.
 
 The problem is familiar. Startup-style upside is often technically valuable but
 practically inaccessible to workers. Token compensation is liquid, but it can
@@ -15,7 +16,7 @@ operators do not fully understand at the moment they make the promise.
 TLY tries to define a narrower, more legible bargain.
 
 While active, a contributor receives normal cash compensation and a small active
-bonus tied to realized compensation history. When the contributor exits, a
+bonus tied to a historical compensation base. When the contributor exits, a
 defined snapshot becomes a tapering stablecoin payout for a fixed duration. The
 payout runs off over time instead of persisting as a perpetual obligation.
 
