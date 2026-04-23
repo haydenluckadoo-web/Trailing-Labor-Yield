@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import html
 import re
 import subprocess
 import sys
@@ -231,6 +230,7 @@ def render_pdf(html_path: Path, pdf_path: Path) -> None:
         str(CHROME),
         "--headless=new",
         "--disable-gpu",
+        "--no-pdf-header-footer",
         "--run-all-compositor-stages-before-draw",
         "--virtual-time-budget=4000",
         f"--print-to-pdf={pdf_path.resolve()}",

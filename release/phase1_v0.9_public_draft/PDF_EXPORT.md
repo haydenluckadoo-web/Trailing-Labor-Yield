@@ -38,6 +38,9 @@ This generates:
 
 The HTML intermediate is ignored by `.gitignore` and does not need to be
 committed.
+The export script uses headless Chrome without browser print headers or
+footers, so timestamps, file paths, and page URLs should not appear in the
+final PDF.
 
 ## Export Requirements
 

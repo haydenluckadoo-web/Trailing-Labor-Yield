@@ -13,9 +13,11 @@ active, adds a small bonus tied to cumulative historical pay, and converts the
 final active bonus into a fixed-duration trailing payout when the contributor
 exits. The payout tapers over time, giving former contributors continued
 economic exposure to organizational survival without issuing governance tokens
-or creating untapered pension-like claims. TLY is not appropriate for every
-organization; it requires reserve planning, transparent compensation
-governance, and jurisdiction-specific legal review.
+or creating untapered pension-like claims. In the reference implementation, the
+trailing side is best understood as a rule-based contingent claim rather than
+senior debt. TLY is not appropriate for every organization; it requires reserve
+planning, transparent compensation governance, and jurisdiction-specific legal
+review.
 
 ## Executive Summary
 
@@ -27,12 +29,14 @@ governance, and jurisdiction-specific legal review.
   a trailing stablecoin payout.
 - The trailing payout tapers, for example by 5 percent annually, and expires
   after a fixed period, for example 25 years.
-- The taper makes the alumni liability a runoff process rather than a
-  perpetuity.
+- The long-run burden is bounded only if legacy payouts taper and the active
+  bonus base remains stationary relative to payroll.
+- In the reference design, the historical pay pool includes prior settled
+  active bonuses as well as base pay.
 - The EVM implementation uses per-wallet state and pull claims, so the treasury
   never loops over all alumni.
-- Active contributor pay can be prioritized during stress by pausing trailing
-  claims.
+- The on-chain trailing payout is a contingent claim that can be subordinated
+  during treasury stress while active pay continues.
 - TLY is a mechanism design proposal, not legal, tax, accounting, or investment
   advice.
 
@@ -103,6 +107,10 @@ $$
 R = \$3{,}500.
 $$
 
+This paper uses the same timing convention as the contracts: the first
+claimable trailing payout occurs one full epoch after departure and equals
+$R\rho$, not $R$.
+
 With a 5 percent annual taper, the first three trailing payouts are:
 
 | Year after exit | Payout |
@@ -152,7 +160,7 @@ treasury cash flows, but the claim tapers and expires.
 ## What TLY Is
 
 TLY is a compensation rule that converts labor history into a trailing
-cash-flow claim.
+contingent cash-flow claim.
 
 - It is not equity because it does not transfer governance or ownership.
 - It is not ordinary token compensation because it does not require issuing or
@@ -187,11 +195,46 @@ $$
 where $s$ is the number of epochs after departure and $\rho$ is the per-epoch
 taper factor. For annual epochs and a 5 percent taper, $\rho = 0.95$.
 
+In the reference implementation, the on-chain trailing side is not framed as
+senior debt. It is a rule-based contingent claim. Legacy withdrawals can be
+paused during treasury stress while active compensation continues, unless an
+off-chain wrapper grants claimants different rights.
+
+## Historical Pay Pool And Compounding
+
+The historical pay pool is the core state variable on the active side. In the
+reference design, it is not just cumulative base salary. It is cumulative
+settled active compensation that remains attached to the active workforce.
+
+At the contributor level, while a contributor remains active:
+
+$$
+H_{i,t+1} = H_{i,t} + B_{i,t} + A_{i,t}.
+$$
+
+At the aggregate level, after turnover is applied:
+
+$$
+H_{t+1} = (H_t + B_t + A_t)(1-q).
+$$
+
+This means prior active bonuses enlarge the future bonus base. That compounding
+is intentional. In TLY, the historical pay pool acts more like a labor-credit
+account than a simple wage ledger. The mechanism is designed to reward
+accumulated compensated contribution, not only elapsed tenure.
+
+A narrower design could compound only on prior base pay and ignore past active
+bonuses. That would be a different and less aggressive mechanism. It is not the
+reference system simulated in `sim/` or implemented in the Solidity contracts.
+
 ## Why The Liability Stays Bounded
 
-The liability stays bounded because old claims lose weight over time. A
-trailing claim with initial amount $R$, taper factor $\rho < 1$, and duration
-$K$ has total undiscounted payout:
+The liability stays bounded only if two layers remain controlled. At the
+claimant level, old trailing payouts must lose weight over time. At the system
+level, the active bonus base must not outgrow payroll.
+
+For a trailing claim with initial amount $R$, taper factor $\rho < 1$, and
+duration $K$, total undiscounted payout is:
 
 $$
 \sum_{s=1}^{K} R\rho^s
@@ -217,15 +260,66 @@ This number is the lifetime multiple of the final active bonus, not of base
 salary. The final active bonus is itself controlled by the active accrual
 share, typically modeled at 1 percent.
 
-At the organization level, three forces interact:
+Tapering alone is not the whole stationarity story. Let $G$ denote gross
+payroll growth from one epoch to the next, let $q$ denote turnover, and define
+the aggregate historical-pool ratio:
+
+$$
+h = \frac{H_t}{B_t}.
+$$
+
+From the aggregate update equations:
+
+$$
+H_{t+1} = (H_t + B_t + A_t)(1-q)
+$$
+
+and
+
+$$
+A_t = \alpha(H_t + B_t),
+$$
+
+the key stability parameter is:
+
+$$
+c = \frac{(1-q)(1+\alpha)}{G}.
+$$
+
+If $c < 1$, then the active-side state converges to a steady ratio:
+
+$$
+h = \frac{c}{1-c}
+$$
+
+and the active bonus ratio converges to:
+
+$$
+m = \frac{A_t}{B_t} = \frac{\alpha}{1-c}.
+$$
+
+If $c \geq 1$, the historical-pay base grows at least as fast as payroll and
+the active bonus ratio does not settle. In other words, tapering legacy
+payouts is necessary but not sufficient. The active side must also remain
+stationary relative to payroll.
+
+At the organization level, four forces interact:
 
 1. Low active accrual limits new trailing claims.
 2. Payroll growth makes old cohorts smaller relative to current payroll.
 3. The taper reduces the weight of every legacy cohort over time.
+4. Turnover limits how much historical pay remains attached to active workers.
 
 Under the simulator's baseline growth intuition of roughly 4 percent gross
 payroll growth and the EVM convention that the first legacy claim receives
 $R\rho$, the approximate steady burden is:
+
+The active bonus ratio column is not an arbitrary input. It is the steady-state
+value implied by the condition above. With $\alpha = 1\%$ and $G \approx 1.04$,
+the model yields $m \approx 9.35\%$ at 8 percent turnover, $m \approx 7.92\%$
+at 10 percent turnover, and $m \approx 3.12\%$ at 30 percent turnover. Higher
+turnover reduces the average active historical pool, so fewer contributors stay
+long enough to build large active bonus bases.
 
 | Turnover | Active bonus ratio | Approx. trailing burden |
 | ---: | ---: | ---: |
@@ -234,10 +328,20 @@ $R\rho$, the approximate steady burden is:
 | 30% | 3.12% | 9.8% of payroll |
 
 These values are illustrative rather than universal. The important point is
-structural: the taper converts a potentially permanent alumni obligation into
-a stationary runoff process. No artificial cap on an individual contributor's
-historical pay pool is needed for stationarity, although organizations may
-still adopt governance controls around pay changes and exit timing.
+structural: TLY stabilizes only when the active bonus base remains bounded
+relative to payroll and the trailing side runs off over time. No artificial cap
+on an individual contributor's historical pay pool is needed for stationarity,
+although organizations may still adopt governance controls around pay changes
+and exit timing.
+
+Even when those conditions hold, treasury discipline is still operationally
+necessary. At minimum, a DAO considering TLY should track:
+
+- trailing burden as a percentage of active payroll;
+- trailing burden as a percentage of gross margin or operating surplus;
+- reserve coverage ratio, measured as stable reserves divided by projected
+  trailing claims over a fixed look-ahead window such as 12 epochs;
+- the explicit stress threshold at which legacy claims may be paused.
 
 **Design Conditions**
 
@@ -246,6 +350,7 @@ TLY is most defensible when the following conditions hold:
 - low active accrual share;
 - taper factor below one;
 - finite trailing duration;
+- active-side stationarity, meaning $c < 1$;
 - credible treasury funding policy;
 - governance controls around exit timing and pay changes.
 
@@ -257,7 +362,7 @@ TLY is most defensible when the following conditions hold:
 | Direct governance dilution | Often yes | Yes | No | No | No |
 | Treasury cash obligation | No near-term cash | Often indirect | Yes | Yes | Yes |
 | Bounded long-run liability | Cap table bounded, value uncertain | Issuance may expand | Often weak or no | Depends on contract | Yes, via taper and term |
-| Portable after exit | Sometimes, but illiquid | Yes | Yes | Sometimes | Yes |
+| Retained economic rights after exit | Sometimes, but illiquid | Yes | Usually yes, subject to plan rules | Sometimes | Yes |
 | Depends on market price | High | High | Low | Medium | Low if paid in stablecoins |
 | Depends on treasury solvency | Indirect | Indirect | High | High | High |
 | Legal / tax complexity | High | High | High | Medium to high | Medium to high |
@@ -324,8 +429,9 @@ current labor funded during bear markets or treasury stress.
 
 ## Capitalization Models For TLY
 
-The pre-revenue question is central. TLY is a cash-flow claim. It should not be
-adopted casually by organizations that lack a path to funding future claims.
+The pre-revenue question is central. TLY is a contingent cash-flow claim. It
+should not be adopted casually by organizations that lack a path to funding
+future claims.
 
 Possible capitalization models include:
 
@@ -342,7 +448,8 @@ Possible capitalization models include:
 These models can be combined. For example, an early protocol might accrue TLY
 internally but delay claim activation until a stablecoin reserve threshold is
 met. The design question is not whether the claim can be written on-chain. It
-is whether the organization has a credible funding policy.
+is whether the organization has a credible funding policy and a disclosed
+stress rule.
 
 ## Risks, Limitations, And Failure Modes
 
@@ -353,10 +460,11 @@ works best for profitable, treasury-backed, or reserve-capitalized entities.
 Pre-revenue organizations may need delayed activation, reserve escrows, smaller
 initial accrual rates, or hybrid token-cash structures.
 
-Trailing claims should be described precisely. Depending on legal structure,
-they may be contingent claims rather than guaranteed debt. If treasury funds
-are insufficient, the organization must define whether missed claims accrue,
-queue, partially defer, or remain claimable only when the treasury is funded.
+Trailing claims should be described precisely. In the reference on-chain design,
+they are contingent, stress-subordinated protocol claims unless an off-chain
+agreement grants claimants different rights. If treasury funds are insufficient,
+the organization must define whether missed claims accrue, queue, partially
+defer, or remain claimable only when the treasury is funded.
 
 ### Legal, Tax, And Deferred Compensation Risk
 
@@ -374,7 +482,9 @@ investment advice.
 ### Terminal Bonus Manipulation
 
 If the trailing claim is based only on the last active bonus, parties may try
-to manipulate the terminal period. Defenses include:
+to manipulate the terminal period. Production deployments should prefer a
+rolling average of recent active bonuses as the default snapshot policy.
+Defenses include:
 
 - using a rolling average of recent active bonuses instead of a single final
   bonus;
@@ -384,8 +494,9 @@ to manipulate the terminal period. Defenses include:
 - capping snapshot growth relative to a trailing average, while still avoiding
   a cap on the contributor's historical pay pool itself.
 
-The current reference contract snapshots `lastActiveBonus`. Production
-deployments may choose a more conservative snapshot policy.
+The current reference contract snapshots `lastActiveBonus` for simplicity and
+gas economy. That should be treated as a minimal reference implementation, not
+the normative production recommendation.
 
 ### Treasury Stress And Insolvency
 
@@ -461,7 +572,7 @@ deployment.
 TLY offers an alternative to the common compensation tradeoff between illiquid
 equity and volatile token issuance. It can separate contributor upside from
 governance-asset dilution while giving the organization a modeled, tapering
-obligation.
+contingent claim schedule.
 
 The active state rewards tenure through compounding accrual. The legacy state
 turns the final active bonus into a trailing stablecoin claim. The taper turns
@@ -484,10 +595,14 @@ are per epoch.
 ### A.1 Notation
 
 - $B_{i,t}$: contributor $i$'s base pay in epoch $t$.
-- $H_{i,t}$: contributor $i$'s historical pay pool entering epoch $t$.
+- $H_{i,t}$: contributor $i$'s historical pay pool entering epoch $t$, defined
+  in the reference model as cumulative settled active compensation while
+  active.
 - $\alpha$: active accrual share.
 - $A_{i,t}$: active bonus.
 - $R_i$: initial trailing amount after exit.
+- $s$: elapsed epochs since departure, starting at $s=1$ for the first
+  claimable legacy epoch.
 - $\delta$: taper rate.
 - $\rho = 1-\delta$: per-epoch taper factor.
 - $K$: maximum trailing duration.
@@ -522,6 +637,10 @@ Exit snapshot:
 $$
 R_i = A_{i,\tau_i}.
 $$
+
+This paper uses the EVM timing convention throughout: the first claimable
+legacy payout occurs one full epoch after departure, so $s=1$ at the first
+claimable epoch.
 
 Trailing payout $s$ epochs after departure:
 
