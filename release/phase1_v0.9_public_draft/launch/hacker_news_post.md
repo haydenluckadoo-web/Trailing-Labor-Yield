@@ -2,24 +2,33 @@
 
 ## Title Options
 
-1. Trailing Labor Yield: a stablecoin compensation mechanism for DAOs
-2. TLY: tapering legacy payouts instead of token comp or illiquid equity
-3. A white paper and EVM reference implementation for stablecoin-based contributor compensation
+1. Trailing Labor Yield: programmable deferred compensation for contributors
+2. TLY: stablecoin trailing payouts without governance-token sell pressure
+3. A white paper, simulator, and EVM reference implementation for contributor deferred comp
 
 ## Suggested Post Body
 
-I’ve been working on a compensation mechanism called Trailing Labor Yield (TLY).
+I’ve been working on a compensation architecture called Trailing Labor Yield
+(TLY).
 
 The basic idea is:
 
 - contributors receive normal cash compensation while active;
-- they also accrue a small bonus tied to cumulative historical pay;
-- when they leave, their final active bonus becomes a tapering stablecoin payout for a fixed duration.
+- they also accrue a small bonus tied to realized compensation history;
+- when they leave, a defined exit snapshot becomes a tapering stablecoin payout
+  for a fixed duration.
 
-The goal is to sit between two common failure modes:
+The goal is not to invent a wholly new economic category. It is to make a
+specific deferred-compensation promise more explicit, programmable, and
+stress-testable.
 
-- illiquid startup-style upside that workers may never realize;
-- governance-token compensation that workers must sell into the market.
+The draft splits the design into three layers:
+
+- Pure TLY: the math of active accrual, exit snapshot, and legacy runoff;
+- Stress Layer: affordability, reserve coverage, payout priority, and pause /
+  queue / catch-up semantics;
+- Governance Wrapper: anti-gaming rules, realized-compensation averaging,
+  pay-lock rules, and parameter control.
 
 The repo includes:
 
@@ -30,9 +39,10 @@ The repo includes:
 
 I’d especially value criticism on:
 
-- whether the bounded-liability argument is stated clearly;
-- where this is actually a good fit operationally;
-- how people would harden the legal and compensation-governance edge cases.
+- whether the bounded-but-not-automatically-affordable argument is clear;
+- whether the stress semantics are the right ones to expose;
+- whether realized-compensation averaging is the right production default;
+- where this is actually a good fit operationally.
 
 Repo:
 

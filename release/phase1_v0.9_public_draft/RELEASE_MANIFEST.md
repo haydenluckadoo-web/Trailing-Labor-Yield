@@ -1,6 +1,8 @@
 # Release Manifest
 
-This package contains the publication assets for the TLY Phase 1 release.
+This package contains the publication assets for the TLY Phase 1 release. The
+draft frames TLY as a programmable deferred-compensation architecture with
+three layers: Pure TLY, the Stress Layer, and the Governance Wrapper.
 
 ## Included
 
@@ -25,11 +27,13 @@ This package contains the publication assets for the TLY Phase 1 release.
 - `paper/tly_white_paper_v0.9_public_draft_pdf_source.md`
   - PDF-friendly Markdown variant of the white paper.
 - `paper/tly_one_page_summary.md`
-  - One-page summary.
+  - One-page summary reflecting the revised three-layer framing.
 - `paper/tly_faq_objections.md`
-  - FAQ and objections memo.
+  - FAQ and objections memo, including simpler hybrids, stress semantics, and
+    worker-side promise variants.
 - `paper/tly_visual_diagrams.md`
-  - Diagram notes and additional Mermaid figures.
+  - Diagram notes and Mermaid figures for the three-layer architecture,
+    contributor state flow, treasury stress branch, and comparison chart.
 - `sim/pyproject.toml`
   - Reproducible simulator dependency manifest.
 - `sim/uv.lock`
@@ -44,9 +48,11 @@ This package contains the publication assets for the TLY Phase 1 release.
 ## Referenced From The Main Repo
 
 - `sim/`
-  - Python simulator and Streamlit dashboard.
+  - Python simulator and Streamlit dashboard for burden and stress-layer
+    analysis.
 - `dao/`
-  - Solidity contracts, interfaces, tests, and DAO architecture notes.
+  - Solidity reference contracts, interfaces, tests, and DAO architecture notes.
+    These are reference implementations, not production-ready wrappers.
 
 ## Explicitly Out Of Scope For Phase 1
 

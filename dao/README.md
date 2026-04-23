@@ -6,7 +6,9 @@ production systems, and do not treat this folder as audit-cleared code.
 
 This folder contains an initial Solidity architecture for the Trailing Labor
 Yield (TLY) compensation model modeled in `sim/app.py` and
-`sim/baseline_dollars.py`.
+`sim/baseline_dollars.py`. The contracts demonstrate the Pure TLY mechanism and
+some Stress Layer behavior. They do not implement the full Governance Wrapper
+recommended in the white paper.
 
 The Python simulator uses:
 
@@ -19,18 +21,23 @@ historical_pay_pool_next = historical_pay_pool + base_pay + active_bonus
 The on-chain version maps the aggregate simulation into per-contributor state:
 
 - Active contributors claim base pay plus their active bonus.
-- When a contributor exits, the registry snapshots their latest active bonus as
+- When a contributor exits, the registry snapshots `lastActiveBonus` as
   `initialLegacyAmount`.
 - Legacy contributors call `claimTrailingYield()` to pull one or more missed epochs.
 - The treasury never loops over alumni.
 - The protocol does not cap `historicalPayPool` or active bonuses; the accrual
   and taper parameters are the liability controls.
 
+Production deployments should generally replace the single terminal active
+bonus snapshot with trailing realized-compensation averaging over a disclosed
+lookback window. That anti-gaming rule is a production recommendation, not a
+feature of this minimal reference implementation.
+
 ## Contracts
 
 - `contracts/ContributorRegistry.sol`
   - Owns contributor state.
-  - Tracks active/legacy status, base pay, historical pay pool, latest active
+  - Tracks active/legacy status, base pay, historical pay pool, last active
     bonus, and legacy claim checkpoints.
   - Uses OpenZeppelin `AccessControl`.
   - `POD_ADMIN_ROLE` can add contributors, remove contributors, and update base
@@ -99,6 +106,11 @@ sum(initialLegacyAmount * taperFactorPerEpoch ^ elapsedEpoch)
 where the loop is bounded by `maxEpochsPerClaim`, not by the total alumni count
 or by an unbounded claim history.
 
+The reference implementation treats missed claimable epochs as payable when the
+claim is eventually made, subject to available treasury balance and pause state.
+A production Stress Layer should state explicitly whether missed epochs pause,
+partially pay, queue, catch up, or expire without catch-up.
+
 ## Deployment Order
 
 1. Install dependencies:
@@ -120,9 +132,16 @@ This is an initial architecture draft. Before production use:
 - Consider PRBMath, Solmate, or Solady for fixed-point math.
 - Add unit tests for epoch boundaries, skipped claims, underfunded treasury
   behavior, token decimal assumptions, and transition timing.
+- Add tests for stationarity and non-stationarity parameter cases, taper timing,
+  pause/resume behavior, missed-epoch semantics, and snapshot manipulation.
 - Add compensation versioning before production. In this draft, active claims
   settle one epoch at a time using the contributor's current base pay, so the DAO
   should settle outstanding active epochs before changing base pay.
 - Treasury shortfall policy is implemented as tranche priority:
   `pauseLegacyClaims()` blocks alumni claims while active contributors can still
   claim active compensation.
+- Add production snapshot logic or an off-chain wrapper for trailing
+  realized-compensation averaging.
+- Document the worker-side promise: contingent protocol benefit,
+  contract-wrapped deferred compensation, or reserve-backed / partially
+  prefunded claim.

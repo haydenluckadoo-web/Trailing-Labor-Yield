@@ -8,8 +8,12 @@ At this stage, the most valuable contributions are:
 
 - mathematical edge cases or errors in the burden logic;
 - critiques of the steady-state or runoff assumptions;
+- critiques of the Pure TLY / Stress Layer / Governance Wrapper separation;
 - simulation bugs, parameter inconsistencies, or missing sensitivity tests;
+- missing treasury-health metrics, reserve-coverage logic, or stress cases;
 - EVM architecture concerns, especially claim logic, access control, and gas;
+- anti-gaming concerns, especially exit snapshots, realized-compensation
+  averaging, pay-lock rules, and contributor-admin authority;
 - naming, clarity, or framing changes that make the paper more legible to
   founders, operators, and researchers.
 

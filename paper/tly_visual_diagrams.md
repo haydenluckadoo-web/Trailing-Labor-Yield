@@ -7,23 +7,44 @@ These diagrams are intended for GitHub, Mirror, and publication decks. Mermaid
 rendering support varies by platform; export diagrams to SVG or PNG before
 using them in static PDFs.
 
-## 1. Contributor State Flow
+## 1. Three-Layer Architecture
+
+```mermaid
+flowchart TD
+    A[Pure TLY] --> B[Stress Layer]
+    B --> C[Governance Wrapper]
+
+    A --> A1[Active pay + active bonus]
+    A --> A2[Realized compensation history]
+    A --> A3[Tapering legacy runoff]
+
+    B --> B1[Treasury-health metrics]
+    B --> B2[Reserve coverage]
+    B --> B3[Pause / partial pay / queue / catch-up]
+
+    C --> C1[Trailing realized-compensation average]
+    C --> C2[Notice and pay-lock rules]
+    C --> C3[Parameter governance]
+```
+
+## 2. Contributor State Flow
 
 ```mermaid
 flowchart LR
     A[Active Contributor] --> B[Base Pay Each Epoch]
     A --> C[Active Bonus]
-    C --> D[Historical Pay Pool Updates]
+    C --> D[Realized Compensation History]
+    B --> D
     D --> C
     A --> E[Exit Event]
-    E --> F[Snapshot Final Active Bonus]
+    E --> F[Defined Exit Snapshot]
     F --> G[Legacy Contributor]
     G --> H[Pull Claim Each Epoch]
     H --> I[Trailing Stablecoin Payout]
     I --> J[Taper Over Fixed Duration]
 ```
 
-## 2. Organization Cash-Flow Schematic
+## 3. Treasury Stress Branch
 
 ```mermaid
 flowchart TD
@@ -31,16 +52,25 @@ flowchart TD
     T --> LP[Legacy Claims]
     AP --> BP[Base Pay]
     AP --> AB[Active Bonus]
-    AB --> HP[Historical Pay Pool]
+    AB --> HP[Realized Compensation History]
     HP --> AB
     LP --> TY[Trailing Yield]
     TY --> TF[Taper Factor]
-    DA[DAO Admin] --> Pause[pauseLegacyClaims]
-    Pause --> LP
+
+    Health[Treasury-Health Metrics] --> Stress{Stress Threshold Hit?}
+    Stress -->|No| Normal[Legacy claims follow schedule]
+    Stress -->|Yes| Rule[Disclosed stress rule]
+    Rule --> Pause[Pause]
+    Rule --> Partial[Partial Payment]
+    Rule --> Queue[Queue / Catch-Up]
+    Rule --> Skip[No Catch-Up]
     Pause --> Note[Active claims remain available]
+    Partial --> Note
+    Queue --> Note
+    Skip --> Note
 ```
 
-## 3. Pull-Claim Architecture
+## 4. Pull-Claim Architecture
 
 ```mermaid
 sequenceDiagram
@@ -61,7 +91,7 @@ sequenceDiagram
     T->>S: transfer trailing payout
 ```
 
-## 4. Taper Curve Example
+## 5. Taper Curve Example
 
 For an initial trailing amount of $3,500 and a 5 percent annual taper:
 
@@ -84,26 +114,30 @@ xychart-beta
     line [95.0, 90.3, 85.7, 77.4, 59.9, 46.3, 35.8, 27.7]
 ```
 
-## 5. Mechanism Comparison Chart
+## 6. Mechanism Comparison Chart
 
-| Feature | Equity | DAO token comp | Pension | Revenue share | TLY |
+| Feature | Salary + deferred pool | Phantom equity / SAR | Startup equity | DAO token comp | TLY |
 | --- | --- | --- | --- | --- | --- |
-| Liquid while active | Low | High | Low | Medium | High for active pay |
-| Governance dilution | Often | Direct | None | None | None |
-| Treasury cash obligation | Low near term | Indirect | High | High | High but bounded |
-| Long-run liability bounded | By equity pool | By issuance policy | Often weak | Contract-specific | Taper and term |
-| Market-price dependence | High | High | Low | Medium | Low if stablecoin paid |
-| Treasury-solvency dependence | Indirect | Indirect | High | High | High |
-| Best fit | Venture startups | Token networks | Mature employers | Revenue assets | Treasury-backed labor systems |
+| Liquid while active | Usually yes for salary | Usually no | Usually no | Usually yes | Yes, for base and active pay |
+| Governance dilution | No | No | Often | Direct | None |
+| Treasury cash obligation | Yes | Usually later | Low near term | Indirect | Yes |
+| Long-run liability bounded | Plan-specific | Plan-specific | By cap table | By issuance policy | Taper and term |
+| Market-price dependence | Low | High | High | High | Low if stablecoin paid |
+| Treasury-solvency dependence | High | Medium to high | Indirect | Indirect | High |
+| Best fit | Simple deferred comp | Valuation-linked upside | Venture startups | Token networks | Treasury-backed labor systems |
 
-## 6. Burden Logic
+## 7. Burden Logic
 
 ```mermaid
 flowchart LR
     LowAccrual[Low active accrual] --> NewClaims[Smaller new trailing claims]
     PayrollGrowth[Payroll growth] --> CohortDilution[Old cohorts shrink vs current payroll]
-    Taper[5% annual taper] --> Runoff[Legacy claim runoff]
-    NewClaims --> Bounded[Bounded burden range]
+    Taper[Taper + finite term] --> Runoff[Legacy claim runoff]
+    Reserves[Reserve coverage] --> Solvency[Operational affordability]
+    StressRules[Stress-state semantics] --> Solvency
+    NewClaims --> Bounded[Bounded mechanism]
     CohortDilution --> Bounded
     Runoff --> Bounded
+    Bounded --> Caveat[Bounded is not automatically affordable]
+    Solvency --> Caveat
 ```
