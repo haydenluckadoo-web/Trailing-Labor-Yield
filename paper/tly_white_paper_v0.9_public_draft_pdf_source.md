@@ -13,9 +13,10 @@ compensation mechanism meant to take a different path. It pays normal cash
 compensation while a contributor is active, adds a small bonus tied to their
 accumulated pay history, and converts the final active bonus into a fixed-
 duration trailing payout after exit. That payout tapers over time. The point is
-not to imitate equity or pensions perfectly. It is to give contributors a real
-continuing stake without forcing governance dilution or loading the
-organization with a permanent tail of promises. In the reference
+not to recreate equity or pensions in crypto clothing. The point is narrower:
+give contributors a continuing claim after exit without tying compensation to
+governance-token sell pressure and without creating an obligation that grows
+indefinitely. In the reference
 implementation, the trailing side is better understood as a contingent claim
 than as senior debt. TLY is not appropriate for every organization; it needs
 reserve planning, compensation discipline, and real legal review.
@@ -65,11 +66,10 @@ The mechanism has two states:
 2. Legacy state: the contributor no longer earns base pay, but can claim a
    trailing payout based on their final active bonus.
 
-The key design choice is that TLY pays in a treasury reserve asset, such as a
-stablecoin, rather than a governance token. That sounds simple, but it matters.
-Too many token-compensation schemes quietly assume the compensation asset can do
-everything at once: govern, signal, collateralize, reward, and absorb constant
-sell pressure. In practice, that bundle is often brittle.
+TLY pays in a treasury reserve asset, such as a stablecoin, rather than a
+governance token. That choice does a lot of work. Too many token-compensation
+schemes quietly ask the same asset to govern, signal, collateralize, reward,
+and absorb constant sell pressure. In practice, that bundle is often brittle.
 
 ## Mechanism At A Glance
 
@@ -130,13 +130,13 @@ $$
 \$48{,}054.
 $$
 
-Bounded means the obligation runs off structurally rather than compounding
-forever; it does not mean every parameter set is prudent or fully prefunded.
-That distinction matters. People hear "bounded" and often smuggle in
-"affordable." Those are not the same claim. This is a transparent rule that can
-be simulated before adoption. At the organization level, the burden depends on
-payroll growth, turnover, active accrual rate, trailing duration, and the
-taper.
+This small example is useful, but it is also where a clean formula can become
+dangerous. Bounded means the obligation runs off structurally rather than
+compounding forever; it does not mean every parameter set is prudent or fully
+prefunded. That distinction matters. People hear "bounded" and often smuggle in
+"affordable." Those are not the same claim. The organization-level burden still
+depends on payroll growth, turnover, active accrual rate, trailing duration,
+and the taper.
 
 ## The Compensation Problem
 
@@ -172,8 +172,9 @@ workers selling the governance asset into the market. And it is not a standard
 pension. The payout is tied to the contributor's compensation history, begins
 from the final active bonus, and then tapers over a fixed horizon.
 
-TLY provides survival-contingent cash-flow exposure, not the uncapped
-capital-appreciation upside of equity.
+TLY gives contributors a continuing cash-flow claim if the organization
+survives and keeps funding it. That is real upside, but it is not the same
+thing as owning an open-ended equity position.
 
 In the reference design, the active bonus is:
 
@@ -233,10 +234,11 @@ reference system simulated in `sim/` or implemented in the Solidity contracts.
 
 ## Why The Liability Stays Bounded
 
-The liability stays bounded only if two things are true at once. First, old
-trailing payouts have to lose weight over time. Second, the active bonus base
-cannot outrun payroll forever. This is the point that gets oversimplified most
-often in casual discussion of the model.
+This is the place where people most easily overclaim. Tapering the legacy side
+is necessary, but it does not save the model if the active-side historical pool
+is allowed to outrun payroll indefinitely. The old claims have to lose weight,
+and the active bonus base has to remain tied to payroll rather than becoming
+its own runaway ledger.
 
 For a trailing claim with initial amount $R$, taper factor $\rho < 1$, and
 duration $K$, total undiscounted payout is:
@@ -332,12 +334,12 @@ historical pools.
 | 10% | 7.92% | 8.3% of payroll |
 | 30% | 3.12% | 9.8% of payroll |
 
-These values are illustrative rather than universal. The practical point is
-that TLY stabilizes only when the active bonus base remains bounded relative to
-payroll and the trailing side actually runs off over time. No artificial cap on
-an individual contributor's historical pay pool is needed for that result,
-although organizations may still want governance controls around pay changes
-and exit timing.
+These values are illustrative rather than universal. The model stabilizes only
+when the active bonus base remains bounded relative to payroll and the trailing
+side actually runs off over time. No artificial cap on an individual
+contributor's historical pay pool is needed for that result, although the
+governance problem does not disappear. A DAO admin who can change pay one epoch
+before departure can materially affect the claim.
 
 Even when those conditions hold, treasury discipline is still operationally
 necessary. At minimum, a DAO considering TLY should track:
@@ -380,10 +382,10 @@ can promise a perpetual tail.
 
 ## Where TLY Fits Best
 
-TLY is most attractive for organizations that already have, or can reasonably
-develop, stable treasury capacity. That sounds obvious, but it is worth saying
-plainly because mechanism papers often glide past the treasury reality and
-start talking as if good equations fund themselves.
+TLY makes the most sense where treasury capacity is already real or at least
+plausibly reachable. That sounds almost too obvious to write down, but it needs
+to be written down because mechanism papers have a habit of sneaking past the
+funding question and acting like good equations fund themselves.
 
 Good candidates include:
 
@@ -437,9 +439,10 @@ current labor funded during bear markets or treasury stress.
 
 ## Capitalization Models For TLY
 
-The pre-revenue question is central. TLY is a contingent cash-flow claim. It
-should not be adopted casually by organizations that lack a plausible path to
-funding future claims.
+Pre-revenue teams are where this gets dangerous fastest. Writing the claim
+on-chain is trivial compared with funding it later, and teams without a
+believable treasury path should say that plainly rather than bury it under
+future-growth assumptions.
 
 Possible capitalization models include:
 
@@ -467,7 +470,9 @@ policy and a disclosed stress rule.
 TLY is not for cash-starved organizations with no realistic treasury path. It
 works best for profitable, treasury-backed, or reserve-capitalized entities.
 Pre-revenue organizations may need delayed activation, reserve escrows, smaller
-initial accrual rates, or hybrid token-cash structures.
+initial accrual rates, or hybrid token-cash structures. A protocol with
+unstable revenue but a liquid governance token has not solved the cash problem;
+it has moved it.
 
 Trailing claims should be described precisely. In the reference on-chain
 design, they are contingent claims that sit behind active compensation during
@@ -545,12 +550,13 @@ Mitigations include:
 
 The mechanism is bounded only under coherent parameters. A high accrual rate,
 weak taper, very long duration, or low-growth payroll can create excessive
-cash obligations. The simulator should be used before governance adopts or
-changes parameters.
+cash obligations. A 1 percent accrual share sounds small until it compounds
+through a large historical pool under weak turnover assumptions. The simulator
+should be used before governance adopts or changes parameters.
 
 ## Implementation Path And Pilot Model
 
-A practical pilot can be small and explicit:
+A useful pilot can be small and explicit:
 
 1. Choose the payment asset, usually a stablecoin or treasury reserve asset.
 2. Choose epoch length, such as monthly or annual.
@@ -593,11 +599,11 @@ an alumni obligation into a runoff process. The EVM design maps this process
 to per-wallet state, pull-based claims, bounded missed-epoch processing, and
 stress controls for legacy withdrawals.
 
-The claim is not free. It has to be funded, governed, disclosed, and legally
-structured. But for organizations with real reserve discipline, TLY can create
-a clearer bargain. Contributors get liquid, trailing upside. The organization
-keeps governance cleaner and can look at the long-run burden before making the
-promise instead of after.
+None of that makes the claim cheap or easy. It still has to be funded,
+documented, governed, and legally wrapped in a way that matches the
+jurisdiction. But if an organization actually has reserve discipline, TLY at
+least makes the trade legible: contributors get a real trailing claim, and the
+organization can model the burden before pretending it is manageable.
 
 ## Appendix A: Full Formulas
 

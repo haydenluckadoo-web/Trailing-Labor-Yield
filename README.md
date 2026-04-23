@@ -9,13 +9,14 @@ production-ready systems.
 
 Trailing Labor Yield (TLY) is a stablecoin-denominated contributor
 compensation mechanism for DAOs, protocol companies, cooperatives, and other
-treasury-backed organizations. It combines normal active pay, a small
-compounding active bonus tied to historical pay, and a tapering trailing payout
-after exit.
+treasury-backed organizations. The claim is simple to describe but not free to
+fund: active contributors receive normal pay plus a small bonus tied to their
+historical pay, and departing contributors can receive a tapering trailing
+payout after exit.
 
-This repository is the Phase 1 public-release layout: the white paper and
-supporting documents are up front, while the simulator and EVM reference
-implementation remain visible and close at hand.
+This repository is the Phase 1 public-release layout. The white paper and
+supporting documents come first; the simulator and EVM reference implementation
+stay close by so the mechanism can be pressure-tested instead of just read.
 
 ## Start Here
 
@@ -61,7 +62,7 @@ Phase 1 is deliberately narrow:
 
 - publish cleanly;
 - make the mechanism legible quickly;
-- show both economic and implementation seriousness;
+- show the economic burden and the implementation path;
 - invite criticism before commercialization.
 
 ## Not In Scope For This Release
