@@ -30,9 +30,6 @@ and legally wrapping it are the hard parts.
 - `sim/`: burden-analysis model, baseline scenarios, and Streamlit dashboard.
 - `dao/`: Solidity reference implementation scaffolding, Foundry configuration,
   and tests.
-- `launch/`: draft launch copy for Hacker News, Reddit, and longer-form posts.
-- Top-level release notes: setup guidance, publication checklist, manifest, and
-  PDF export instructions.
 
 ## Start Here
 
@@ -130,8 +127,7 @@ Phase 1 is deliberately narrow:
 ## Notes
 
 - The canonical publication draft is `v0.9 public draft`.
-- The PDF binary is checked in. Regeneration instructions live at
-  [PDF_EXPORT.md](PDF_EXPORT.md).
+- The PDF binary is checked in beside the Markdown source.
 - The simulator and Solidity code here are reference implementations for the
   mechanism, not production-ready audited systems or complete deployment
   packages.
