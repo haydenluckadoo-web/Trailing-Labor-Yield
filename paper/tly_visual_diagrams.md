@@ -22,8 +22,8 @@ flowchart TD
     B --> B2[Reserve coverage]
     B --> B3[Pause / partial pay / queue / catch-up]
 
-    C --> C1[Trailing realized-compensation average]
-    C --> C2[Notice and pay-lock rules]
+    C --> C1[Eligible-compensation rules]
+    C --> C2[Compensation-ledger integrity]
     C --> C3[Parameter governance]
 ```
 
@@ -37,7 +37,7 @@ flowchart LR
     B --> D
     D --> C
     A --> E[Exit Event]
-    E --> F[Defined Exit Snapshot]
+    E --> F[Lifetime Compensation Base]
     F --> G[Legacy Contributor]
     G --> H[Pull Claim Each Epoch]
     H --> I[Trailing Stablecoin Payout]

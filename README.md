@@ -15,12 +15,12 @@ The stablecoin- and EVM-based design in this repository is a reference
 implementation of that broader structure. Its components resemble familiar
 instruments, including deferred compensation, phantom participation, contingent
 benefits, and runoff liabilities. The novelty is the architecture that links
-compensated labor history, a defined exit snapshot, finite runoff, funding
-discipline, and production governance.
+eligible lifetime compensation history, finite runoff, funding discipline, and
+production governance.
 
 The short version: active contributors receive normal pay plus a small bonus
-tied to a historical compensation base; on exit, a defined snapshot becomes a
-tapering trailing payout. The claim is easy to describe. Funding, governing,
+tied to a historical compensation base; on exit, that cumulative base determines
+a tapering trailing payout. The claim is easy to describe. Funding, governing,
 and legally wrapping it are the hard parts.
 
 ## What This Repository Contains
@@ -67,7 +67,7 @@ For builders:
 active contributor
   -> base pay + active bonus
   -> historical compensation base grows
-  -> exit snapshot
+  -> lifetime compensation base at exit
   -> legacy runoff claim
   -> taper until expiration
 ```
@@ -98,14 +98,14 @@ stress treasury state
   a normal deferred-bonus pool.
 - TLY is not safe under arbitrary parameters. Bounded is not the same thing as
   affordable.
-- TLY is not a substitute for treasury discipline, reserve policy, anti-gaming
-  rules, or jurisdiction-specific legal work.
+- TLY is not a substitute for treasury discipline, reserve policy,
+  compensation-ledger controls, or jurisdiction-specific legal work.
 - The simulator models burden dynamics, not legal enforceability or solvency
   guarantees.
 - The reference contracts are scaffolding for the mechanism, not a complete
   production compensation system.
 - The reference contracts do not implement every production recommendation,
-  especially realized-compensation averaging and full legal-wrapper semantics.
+  especially full compensation-ledger governance and legal-wrapper semantics.
 
 ## What This Release Is Trying To Do
 

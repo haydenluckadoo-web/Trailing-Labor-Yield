@@ -8,8 +8,8 @@ Companion to the TLY white paper
 TLY is best understood as a historical-compensation-indexed trailing labor
 claim: past compensated contribution determines a finite, tapering stream of
 post-exit cash flows. It combines familiar pieces: active pay, bonus accrual,
-an exit snapshot, trailing payout, taper, term, treasury stress rules, and
-governance controls.
+an eligible lifetime compensation base, trailing payout, taper, term, treasury
+stress rules, and governance controls.
 
 The useful part is the package, not the mythology.
 
@@ -41,8 +41,8 @@ priority rules.
 
 No. A pension is generally a retirement benefit with legal, actuarial, and
 employment-specific treatment. TLY is a contributor-specific trailing cash-flow
-claim based on a defined exit snapshot. It tapers and expires. That said, some
-jurisdictions may still treat TLY-like arrangements under deferred
+claim based on eligible lifetime compensation. It tapers and expires. That said,
+some jurisdictions may still treat TLY-like arrangements under deferred
 compensation, benefits, or labor rules.
 
 ## Is this just revenue share?
@@ -74,21 +74,23 @@ Potentially. It may implicate payroll, withholding, deferred compensation,
 securities, labor, benefits, or accounting rules. Contributors and
 organizations should obtain jurisdiction-specific advice.
 
-## Can a contributor game the exit snapshot?
+## Can a contributor game the exit amount?
 
-Yes, if governance is weak. The production default should be trailing
-realized-compensation averaging over a defined lookback window, not a single
-terminal active bonus. Additional defenses include notice periods, locked or
-reviewed base pay near departure, governance review for exceptional changes,
-and snapshot-growth limits relative to trailing averages.
+Not by manipulating a terminal salary number, if the mechanism is implemented
+according to the natural definition. The initial trailing amount is the accrual
+share multiplied by the contributor's eligible lifetime compensation base at
+the company.
+
+The governance risk is upstream: what counts as eligible compensation, who can
+write to the compensation ledger, and how exceptional or retroactive
+compensation changes are reviewed.
 
 ## Why not cap the historical compensation base?
 
 TLY intentionally rewards long tenure. Capping the historical compensation base
 weakens the retention mechanism. Aggregate stability comes from low accrual,
 payroll growth, fixed duration, and tapering legacy claims. Governance should
-focus on preventing terminal manipulation rather than clipping legitimate
-tenure.
+focus on compensation-ledger integrity rather than clipping legitimate tenure.
 
 ## What if turnover is high?
 

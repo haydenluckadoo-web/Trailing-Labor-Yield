@@ -11,8 +11,8 @@ determines a finite, tapering stream of post-exit cash flows.
 
 The components are familiar: deferred compensation, phantom participation,
 contingent benefits, and runoff liabilities. The novelty is the architecture
-that links compensated labor history, a defined exit snapshot, finite runoff,
-funding discipline, and production governance. In this release, the
+that links eligible lifetime compensation history, finite runoff, funding
+discipline, and production governance. In this release, the
 stablecoin/EVM design is a reference implementation of that broader structure.
 
 ## The Problem
@@ -30,8 +30,8 @@ clearer departure economics than many option or token packages.
 1. Pure TLY: the mathematical mechanism.
 2. Stress Layer: reserve coverage, affordability, payout priority, pause
    semantics, and missed-epoch treatment.
-3. Governance Wrapper: realized-compensation averaging, notice/pay-lock rules,
-   anti-gaming controls, and parameter governance.
+3. Governance Wrapper: eligible-compensation rules, compensation-ledger
+   integrity, exceptional-comp review, and parameter governance.
 
 ## The Mechanism
 
@@ -42,9 +42,10 @@ Active contributors receive:
 
 When a contributor exits:
 
-- a defined realized-compensation snapshot becomes the initial trailing amount;
-- production designs should use a trailing average, not a single terminal
-  bonus;
+- the contributor's eligible lifetime compensation base determines the initial
+  trailing amount;
+- the initial amount is the accrual share multiplied by that cumulative base,
+  not a terminal-period salary or discretionary exit bonus;
 - the payout tapers each period, for example by 5 percent annually;
 - the claim expires after a fixed term, for example 25 years.
 
@@ -88,8 +89,8 @@ Poor candidates:
   skip depending on disclosed rules.
 - Legal and tax treatment: deferred compensation, payroll, securities, labor,
   and benefits rules may apply.
-- Snapshot manipulation: production deployments should use trailing
-  realized-compensation averaging.
+- Ledger integrity: the eligible-compensation base must be auditable and
+  protected from retroactive or exceptional-comp manipulation.
 - Parameter risk: excessive accrual or weak taper can create large obligations.
 
 ## Implementation
@@ -97,7 +98,7 @@ Poor candidates:
 The EVM contracts are reference architecture, not production recommendations.
 They demonstrate per-wallet state, pull claims, fixed-point taper math, and
 active-pay priority. They do not implement every production wrapper, especially
-realized-compensation averaging and legal-claim semantics.
+full compensation-ledger governance and legal-claim semantics.
 
 ## Practical Pilot
 
@@ -106,4 +107,5 @@ realized-compensation averaging and legal-claim semantics.
 3. Set trailing duration and taper.
 4. Simulate payroll, turnover, margin, reserve coverage, and stress cases.
 5. Define pause, partial-payment, queue/catch-up, and missed-epoch rules.
-6. Define anti-gaming and legal wrapper rules before deployment.
+6. Define eligible-compensation, ledger-governance, and legal-wrapper rules
+   before deployment.
