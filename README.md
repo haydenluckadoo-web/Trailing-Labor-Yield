@@ -15,8 +15,12 @@ The stablecoin- and EVM-based design in this repository is a reference
 implementation of that broader structure. Its components resemble familiar
 instruments, including deferred compensation, phantom participation, contingent
 benefits, and runoff liabilities. The novelty is the architecture that links
-eligible lifetime compensation history, finite runoff, funding discipline, and
-production governance.
+cumulative eligible compensation with the organization, finite runoff, funding
+discipline, and production governance.
+
+TLY gives organizations a way to offer stablecoin-denominated economic
+continuation after exit without making governance tokens carry the whole
+compensation burden.
 
 The short version: active contributors receive normal pay plus a small bonus
 tied to a historical compensation base; on exit, that cumulative base determines
@@ -67,7 +71,7 @@ For builders:
 active contributor
   -> base pay + active bonus
   -> historical compensation base grows
-  -> lifetime compensation base at exit
+  -> cumulative eligible-compensation base at exit
   -> legacy runoff claim
   -> taper until expiration
 ```

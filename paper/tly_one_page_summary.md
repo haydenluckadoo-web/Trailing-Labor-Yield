@@ -11,9 +11,13 @@ determines a finite, tapering stream of post-exit cash flows.
 
 The components are familiar: deferred compensation, phantom participation,
 contingent benefits, and runoff liabilities. The novelty is the architecture
-that links eligible lifetime compensation history, finite runoff, funding
-discipline, and production governance. In this release, the
+that links cumulative eligible compensation with the organization, finite
+runoff, funding discipline, and production governance. In this release, the
 stablecoin/EVM design is a reference implementation of that broader structure.
+
+In plainer economic terms, TLY gives organizations a way to offer
+stablecoin-denominated economic continuation after exit without making
+governance tokens carry the whole compensation burden.
 
 ## The Problem
 
@@ -42,12 +46,24 @@ Active contributors receive:
 
 When a contributor exits:
 
-- the contributor's eligible lifetime compensation base determines the initial
-  trailing amount;
+- the contributor's cumulative eligible-compensation base with the organization
+  determines the initial trailing amount;
 - the initial amount is the accrual share multiplied by that cumulative base,
   not a terminal-period salary or discretionary exit bonus;
 - the payout tapers each period, for example by 5 percent annually;
 - the claim expires after a fixed term, for example 25 years.
+
+Worker-side promise variants:
+
+- contingent protocol benefit;
+- contract-wrapped deferred compensation;
+- reserve-backed or partially prefunded claim.
+
+Mechanism variants:
+
+- reference TLY uses a recursive eligible-compensation base;
+- conservative TLY can use a base-pay-only historical ledger;
+- hybrid TLY can partially include settled bonuses.
 
 ## Bounded Is Not Affordable
 

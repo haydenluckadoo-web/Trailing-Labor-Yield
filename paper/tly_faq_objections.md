@@ -8,8 +8,8 @@ Companion to the TLY white paper
 TLY is best understood as a historical-compensation-indexed trailing labor
 claim: past compensated contribution determines a finite, tapering stream of
 post-exit cash flows. It combines familiar pieces: active pay, bonus accrual,
-an eligible lifetime compensation base, trailing payout, taper, term, treasury
-stress rules, and governance controls.
+a cumulative eligible-compensation base with the organization, trailing payout,
+taper, term, treasury stress rules, and governance controls.
 
 The useful part is the package, not the mythology.
 
@@ -41,9 +41,9 @@ priority rules.
 
 No. A pension is generally a retirement benefit with legal, actuarial, and
 employment-specific treatment. TLY is a contributor-specific trailing cash-flow
-claim based on eligible lifetime compensation. It tapers and expires. That said,
-some jurisdictions may still treat TLY-like arrangements under deferred
-compensation, benefits, or labor rules.
+claim based on cumulative eligible compensation with the organization. It
+tapers and expires. That said, some jurisdictions may still treat TLY-like
+arrangements under deferred compensation, benefits, or labor rules.
 
 ## Is this just revenue share?
 
@@ -78,8 +78,8 @@ organizations should obtain jurisdiction-specific advice.
 
 Not by manipulating a terminal salary number, if the mechanism is implemented
 according to the natural definition. The initial trailing amount is the accrual
-share multiplied by the contributor's eligible lifetime compensation base at
-the company.
+share multiplied by the contributor's cumulative eligible-compensation base with
+the organization.
 
 The governance risk is upstream: what counts as eligible compensation, who can
 write to the compensation ledger, and how exceptional or retroactive

@@ -11,32 +11,47 @@ claim: a compensation architecture in which past compensated contribution
 determines a finite, tapering stream of post-exit cash flows. Its components
 resemble familiar instruments: deferred compensation, phantom participation,
 contingent benefits, and runoff liabilities. Its novelty is architectural. It
-links lifetime eligible compensation history, finite runoff, funding discipline,
-and production governance into one modelable structure. The
+links cumulative eligible compensation with the organization, finite runoff,
+funding discipline, and production governance into one modelable structure. The
 stablecoin- and EVM-based design presented here is a reference implementation
 of that broader structure, chosen because reserve assets, programmable
 settlement, and per-wallet claim accounting fit the mechanism naturally. This
 first paper is concept-first, with formal mechanism sections where the
 mechanism needs them and practical deployment layers where treasury,
-governance, and legal choices change the worker-side promise. TLY is not
-appropriate for every organization; it needs reserve planning, compensation
-discipline, and real legal review.
+governance, and legal choices change the worker-side promise.
 
 ## Executive Summary
 
 - TLY is a historical-compensation-indexed trailing labor claim: compensated
   contribution history determines a finite stream of post-exit cash flows.
-- Pure TLY defines the mathematical mechanism: active pay, active bonus accrual,
-  a lifetime eligible-compensation base, and a tapering claim over a fixed term.
-- The Stress Layer defines whether the claim is prudent: affordability, reserve
-  coverage, payout priority, pause/queue/partial-payment rules, and missed-epoch
-  treatment.
-- The Governance Wrapper defines production safety: eligible-compensation
-  rules, ledger integrity, exceptional compensation review, contributor-admin
-  controls, and parameter control.
+- TLY gives organizations a way to offer stablecoin-denominated economic
+  continuation after exit without making governance tokens carry the whole
+  compensation burden.
+- Pure TLY defines the mechanism: active pay, active bonus accrual, a cumulative
+  eligible-compensation base with the organization, and a tapering claim over a
+  fixed term.
+- The same mechanism can sit under different worker-side promises: a contingent
+  protocol benefit, a contract-wrapped deferred-compensation right, or a
+  reserve-backed / partially prefunded claim.
+- The Stress Layer and Governance Wrapper decide whether the claim is prudent:
+  reserve coverage, payout priority, stress semantics, eligible-compensation
+  rules, ledger integrity, exceptional-comp review, and parameter control.
 - The stablecoin/EVM design is a reference implementation for programmable
   settlement, not a complete legal, tax, accounting, employment, or production
   deployment package.
+
+## Why This Exists
+
+Workers are often offered either illiquid equity, volatile token compensation,
+or ordinary cash with no continuing upside. Organizations have the mirror-image
+problem: they need credible contributor upside, but governance tokens are a
+fragile compensation sink and permanent obligations can become a hidden balance
+sheet problem.
+
+TLY tries to make a narrower bargain legible. It gives contributors continuing
+economic exposure after exit while keeping the claim finite, tapering, and
+modelable. The point is not that the claim is cheap. The point is that the
+organization can see the obligation before pretending it is manageable.
 
 ## Who This Is For
 
@@ -59,7 +74,9 @@ per-wallet claim accounting fit the mechanism naturally.
 TLY is not automatically better than equity, RSUs, phantom equity, token
 vesting, or a normal deferred-bonus pool. It is most interesting where an
 organization wants modelable economic continuation without turning governance
-tokens into the compensation sink.
+tokens into the compensation sink. Put more plainly, TLY gives organizations a
+way to offer stablecoin-denominated economic continuation after exit without
+making governance tokens carry the whole compensation burden.
 
 This draft is concept-first. It formalizes the mechanism where precision
 matters, but it does not pretend to settle every legal wrapper, tax treatment,
@@ -90,7 +107,8 @@ The mechanism has two states:
 1. Active state: the contributor receives base pay and earns a compounding
    active bonus.
 2. Legacy state: the contributor no longer earns base pay, but can claim a
-   trailing payout based on lifetime eligible compensation at the company.
+   trailing payout based on cumulative eligible compensation with the
+   organization.
 
 TLY pays in a treasury reserve asset, such as a stablecoin, rather than a
 governance token. That choice does a lot of work. Too many token-compensation
@@ -106,6 +124,42 @@ If someone wants the short version, it is just this:
    compensation base to define the initial trailing amount.
 3. In legacy state, that amount is paid out through a tapering claim schedule
    over a fixed duration.
+
+## Worker-Side Promise Variants
+
+The mechanism alone does not answer the first practical question: what does the
+worker actually have?
+
+There are at least three deployment variants:
+
+| Variant | Worker-side promise | Practical implication |
+| --- | --- | --- |
+| Contingent protocol benefit | Claim is payable only under disclosed treasury and governance conditions | Weakest legal/economic promise; easiest to subordinate in stress |
+| Contract-wrapped deferred compensation | Claim is documented off-chain and tied to employment or contributor agreements | Stronger worker expectation; requires legal, tax, payroll, and accounting design |
+| Reserve-backed or partially prefunded claim | Some future payouts are backed by reserves, escrow, or a disclosed buffer policy | More credible, but capital intensive |
+
+These are not cosmetic wrappers. They determine whether TLY is merely
+formulaic, conditionally claimable, contractually enforceable, or credibly
+reserved. The same Pure TLY equation can sit underneath each version, but the
+worker has not been promised the same thing.
+
+## Reference And Conservative Variants
+
+This paper studies recursive TLY as the reference implementation: settled
+active bonuses become part of the future eligible-compensation base. That is
+the strongest version of the mechanism and the one most exposed to stationarity
+assumptions.
+
+The broader TLY category does not require that exact choice:
+
+| Variant | Eligible-compensation base | Why use it |
+| --- | --- | --- |
+| Reference TLY | Base pay plus settled active bonuses | Stronger continuation claim; more sensitive to growth, turnover, and taper assumptions |
+| Conservative TLY | Base pay only | Easier to govern and model; weaker long-tenure upside |
+| Hybrid TLY | Base pay plus partial or capped inclusion of settled bonuses | Middle ground for organizations with tighter treasury constraints |
+
+That distinction matters. A production adopter may reasonably choose the
+conservative or hybrid version without rejecting the TLY architecture.
 
 ## A Worked Example
 
@@ -130,10 +184,11 @@ $$
 $$
 
 If the contributor exits after that year, the reference convention uses the
-accrual share applied to the contributor's eligible lifetime compensation base
-as the initial trailing amount. Under the non-self-referential timing convention
-used here, the exit base for this year is prior historical compensation plus
-current base pay, so the amount is the same as the cached active-bonus amount:
+accrual share applied to the contributor's cumulative eligible-compensation base
+with the organization as the initial trailing amount. Under the
+non-self-referential timing convention used here, the exit base for this year is
+prior historical compensation plus current base pay, so the amount is the same
+as the cached active-bonus amount:
 
 $$
 R = \$3{,}500.
@@ -208,8 +263,8 @@ It is not equity because it does not transfer governance or ownership. It is
 also not ordinary token compensation, because the mechanism does not depend on
 workers selling the governance asset into the market. And it is not a standard
 pension. The payout is tied to the contributor's compensation history, begins
-from the accrued lifetime compensation base, and then tapers over a fixed
-horizon.
+from the cumulative eligible-compensation base with the organization, and then
+tapers over a fixed horizon.
 
 TLY gives contributors a continuing cash-flow claim if the organization
 survives and keeps funding it. That is real upside, but it is not the same
@@ -226,14 +281,14 @@ $$
 $$
 
 In the reference design, the initial trailing amount is the accrual share
-applied to the contributor's eligible lifetime compensation base at exit. Under
-the timing convention used here, that base is prior historical compensation
-plus current-period eligible base pay; the current active bonus is then added to
-the historical compensation base for future active periods if the contributor
-continues. The contracts cache the same quantity as `lastActiveBonus`, but the
-economic object is not a discretionary terminal bonus; it is the accumulated
-compensation ledger multiplied by the accrual share. The trailing claim then
-pays:
+applied to the contributor's cumulative eligible-compensation base with the
+organization. Under the timing convention used here, that base is prior
+historical compensation plus current-period eligible base pay; the current
+active bonus is then added to the historical compensation base for future active
+periods if the contributor continues. The contracts cache the same quantity as
+`lastActiveBonus`, but the economic object is not a discretionary terminal
+bonus; it is the accumulated compensation ledger multiplied by the accrual
+share. The trailing claim then pays:
 
 $$
 \text{Trailing Payout}_s
@@ -277,8 +332,9 @@ running labor-credit account than a simple wage ledger. The mechanism is trying
 to reward accumulated compensated contribution, not only elapsed tenure.
 
 A narrower design could compound only on prior base pay and ignore past active
-bonuses. That would be a different and less aggressive mechanism. It is not the
-reference system simulated in `sim/` or implemented in the Solidity contracts.
+bonuses. That would be a different and less aggressive member of the TLY
+family. It is not the reference system simulated in `sim/` or implemented in
+the Solidity contracts.
 
 There are at least three plausible variants:
 
@@ -291,7 +347,10 @@ There are at least three plausible variants:
 This paper uses the full recursive design as the reference mechanism. That
 choice should be visible rather than smuggled into the equations. Prior settled
 active bonuses enlarge the future compensation base; if that feels like a small
-detail, it is not.
+detail, it is not. But the architectural claim is broader than the recursive
+variant. Base-pay-only and hybrid ledgers can still be TLY designs if they
+convert cumulative compensated contribution into a finite, tapering post-exit
+claim.
 
 ### Bounded Runoff And Stationarity
 
@@ -395,13 +454,19 @@ historical compensation bases.
 | 10% | 7.92% | 8.3% of payroll |
 | 30% | 3.12% | 9.8% of payroll |
 
+Higher turnover reduces the active historical base, but it also creates more
+frequent legacy cohorts. That means the active-side and legacy-side effects can
+move in opposite directions, which is why this table is easy to misread on a
+first pass.
+
 These values are illustrative rather than universal. Boundedness is a
 mechanical property, not a solvency guarantee. The model stabilizes only when
 the active bonus base remains bounded relative to payroll and the trailing side
 actually runs off over time. No artificial cap on an individual contributor's
 historical compensation base is needed for that result, although the governance
-problem does not disappear. An administrator who can change compensation one
-epoch before departure can materially affect the claim.
+problem does not disappear. An administrator who can rewrite the eligible
+compensation ledger or reclassify exceptional compensation can materially
+affect the claim.
 
 ## Layer 2: Stress Layer
 
@@ -487,8 +552,9 @@ being gamed by people who understand exactly where the formula is sensitive.
 The pure mechanism is elegant, but production safety requires wrapper rules. A
 production TLY design should not let the eligible-compensation ledger become a
 soft governance variable. The initial trailing amount should be derived from
-lifetime eligible compensation multiplied by the accrual share, not from a
-salary number or discretionary bonus chosen near departure.
+cumulative eligible compensation with the organization multiplied by the
+accrual share, not from a salary number or discretionary bonus chosen near
+departure.
 
 ### Production Compensation-Ledger Default
 
@@ -498,12 +564,12 @@ $$
 R_i = \alpha E_{i,\tau_i},
 $$
 
-where $E_{i,\tau_i}$ is the contributor's eligible lifetime compensation base
-at exit. That base may include base pay, settled active bonuses, or other
-earned compensation depending on the deployment design, but the definition has
-to be fixed before the claim is earned. In the reference recursive design, prior
-settled active bonuses enlarge the base; a base-pay-only variant would be
-cleaner but less generous.
+where $E_{i,\tau_i}$ is the contributor's cumulative eligible-compensation base
+with the organization at exit. That base may include base pay, settled active
+bonuses, or other earned compensation depending on the deployment design, but
+the definition has to be fixed before the claim is earned. In the reference
+recursive design, prior settled active bonuses enlarge the base; a base-pay-only
+variant would be cleaner but less generous.
 
 This is why ordinary terminal-period manipulation should not be the main risk
 in the model. A contributor should not be able to improve the trailing claim by
@@ -561,22 +627,6 @@ The governance design separates roles:
 
 If legacy claims are paused, active compensation remains claimable. This keeps
 current labor funded during bear markets or treasury stress.
-
-## Worker-Side Promise Variants
-
-The same TLY formula can support different promises. Workers should not have to
-infer which one they are being offered.
-
-| Variant | What the worker has | Main deployment burden |
-| --- | --- | --- |
-| Contingent protocol benefit | A claim defined by protocol rules and treasury state | Clear disclosure of pause, priority, and missed-epoch treatment |
-| Contract-wrapped deferred compensation | An off-chain legal right that mirrors the mechanism | Employment, tax, accounting, withholding, and enforceability work |
-| Reserve-backed or partially prefunded TLY | A claim supported by disclosed reserves or escrow policy | Reserve governance, coverage reporting, and drawdown rules |
-
-The mechanism is legible on paper much earlier than it is defensible in
-production. The wrapper determines whether alumni hold a weak contingent
-benefit, a stronger contractual right, or something closer to a prefunded
-reserve claim.
 
 ## What Is Actually New Here?
 
@@ -734,8 +784,8 @@ The natural TLY definition removes the usual terminal-period manipulation
 problem. The initial trailing claim is not supposed to be based on the
 contributor's final salary, a final-period bonus, or a number selected at
 departure. It is the
-accrual share multiplied by the contributor's eligible lifetime compensation
-base at the company.
+accrual share multiplied by the contributor's cumulative eligible-compensation
+base with the organization.
 
 That does not make governance irrelevant. It moves the problem to the place
 where it belongs: the definition and administration of eligible compensation.
@@ -842,7 +892,8 @@ governed, and legally wrapped in a way that matches the jurisdiction.
 
 If an organization actually has reserve discipline, TLY at least makes the
 trade legible: contributors get a real trailing claim, and the organization can
-model the burden before pretending it is manageable.
+model the burden before pretending it is manageable. That is the contribution:
+post-exit labor upside made explicit, finite, modelable, and governable.
 
 ## Appendix A: Full Formulas
 
@@ -856,7 +907,7 @@ are per epoch.
 - $H_{i,t}$: contributor $i$'s historical compensation base entering epoch $t$,
   defined in the reference model as cumulative settled active compensation
   while active. In the contracts this is stored as `historicalPayPool`.
-- $E_{i,t}$: eligible lifetime compensation base used for accrual in epoch
+- $E_{i,t}$: cumulative eligible-compensation base used for accrual in epoch
   $t$. Under the reference timing convention, $E_{i,t}=H_{i,t}+B_{i,t}$.
 - $\alpha$: active accrual share.
 - $A_{i,t}$: active bonus.
@@ -899,11 +950,11 @@ $$
 R_i = \alpha E_{i,\tau_i}.
 $$
 
-Here $E_{i,\tau_i}$ is the contributor's eligible lifetime compensation base at
-exit under the disclosed timing convention. In the Solidity reference,
-`lastActiveBonus` caches the same accrual-rate calculation for the last settled
-active epoch. That cache is an implementation shortcut, not a separate
-discretionary exit bonus.
+Here $E_{i,\tau_i}$ is the contributor's cumulative eligible-compensation base
+with the organization at exit under the disclosed timing convention. In the
+Solidity reference, `lastActiveBonus` caches the same accrual-rate calculation
+for the last settled active epoch. That cache is an implementation shortcut,
+not a separate discretionary exit bonus.
 
 This paper uses the EVM timing convention throughout: the first claimable
 legacy payout occurs one full epoch after departure, so $s=1$ at the first
@@ -1120,7 +1171,8 @@ compensation. This supports active-pay priority during treasury stress.
 
 No. A pension is typically a broad retirement benefit with employer-specific
 legal and actuarial treatment. TLY is a contributor-specific trailing cash-flow
-claim based on lifetime eligible compensation. It tapers and expires.
+claim based on cumulative eligible compensation with the organization. It
+tapers and expires.
 
 ### Is TLY just revenue share?
 
@@ -1153,9 +1205,10 @@ partially paid, or legally enforceable.
 
 Not by manipulating a terminal salary number, if TLY is implemented according
 to the natural definition. The initial trailing amount is the accrual share
-multiplied by lifetime eligible compensation at the company. Governance risk
-instead sits in the compensation ledger: what counts as eligible compensation,
-who can update it, and how exceptional or retroactive compensation is reviewed.
+multiplied by cumulative eligible compensation with the organization.
+Governance risk instead sits in the compensation ledger: what counts as
+eligible compensation, who can update it, and how exceptional or retroactive
+compensation is reviewed.
 
 ### Does this create tax or legal issues?
 
