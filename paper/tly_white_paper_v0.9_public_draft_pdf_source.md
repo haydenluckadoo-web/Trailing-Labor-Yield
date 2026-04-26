@@ -176,11 +176,11 @@ Consider one contributor paid annually.
 The active bonus for the year is:
 
 $$
+\begin{aligned}
 \text{Active Bonus}
-=
-(\$250{,}000 + \$100{,}000) \times 0.01
-=
-\$3{,}500.
+&= (\$250{,}000 + \$100{,}000) \times 0.01 \\
+&= \$3{,}500.
+\end{aligned}
 $$
 
 If the contributor exits after that year, the reference convention uses the
@@ -209,9 +209,10 @@ With a 5 percent annual taper, the first three trailing payouts are:
 The total undiscounted payout over 25 years is approximately:
 
 $$
+\begin{aligned}
 \sum_{s=1}^{25} 3500 \times 0.95^s
-\approx
-\$48{,}054.
+&\approx \$48{,}054.
+\end{aligned}
 $$
 
 This small example is useful, but it is also where a clean formula can become
@@ -273,11 +274,11 @@ thing as owning an open-ended equity position.
 In the reference design, the active bonus is:
 
 $$
+\begin{aligned}
 \text{Active Bonus}
-=
-(\text{Historical Compensation Base} + \text{Base Pay})
-\times
-\text{Accrual Share}.
+&= (\text{Historical Compensation Base} + \text{Base Pay}) \\
+&\quad \times \text{Accrual Share}.
+\end{aligned}
 $$
 
 In the reference design, the initial trailing amount is the accrual share
@@ -291,9 +292,10 @@ bonus; it is the accumulated compensation ledger multiplied by the accrual
 share. The trailing claim then pays:
 
 $$
+\begin{aligned}
 \text{Trailing Payout}_s
-=
-\text{Initial Trailing Amount} \times \rho^s,
+&= \text{Initial Trailing Amount} \times \rho^s,
+\end{aligned}
 $$
 
 where $s$ is the number of epochs after departure and $\rho$ is the per-epoch
@@ -364,9 +366,10 @@ For a trailing claim with initial amount $R$, taper factor $\rho < 1$, and
 duration $K$, total undiscounted payout is:
 
 $$
+\begin{aligned}
 \sum_{s=1}^{K} R\rho^s
-=
-R\rho\frac{1-\rho^K}{1-\rho}.
+&= R\rho\frac{1-\rho^K}{1-\rho}.
+\end{aligned}
 $$
 
 At a 5 percent annual taper and 25-year duration:
@@ -378,9 +381,10 @@ $$
 and:
 
 $$
+\begin{aligned}
 R \times 0.95 \times \frac{1-0.95^{25}}{0.05}
-\approx
-13.73R.
+&\approx 13.73R.
+\end{aligned}
 $$
 
 This number is the lifetime multiple of the initial trailing amount, not of
@@ -926,8 +930,11 @@ are per epoch.
 Contributor-level active bonus:
 
 $$
-A_{i,t} = \alpha E_{i,t}
-= \alpha(H_{i,t} + B_{i,t}).
+\begin{aligned}
+A_{i,t}
+&= \alpha E_{i,t} \\
+&= \alpha(H_{i,t} + B_{i,t}).
+\end{aligned}
 $$
 
 Contributor-level historical-pool update:
@@ -969,17 +976,19 @@ $$
 Total finite-horizon trailing payout:
 
 $$
+\begin{aligned}
 \sum_{s=1}^{K} R_i\rho^s
-=
-R_i\rho\frac{1-\rho^K}{1-\rho}.
+&= R_i\rho\frac{1-\rho^K}{1-\rho}.
+\end{aligned}
 $$
 
 Infinite-horizon upper bound:
 
 $$
+\begin{aligned}
 \sum_{s=1}^{\infty} R_i\rho^s
-=
-R_i\frac{\rho}{1-\rho}.
+&= R_i\frac{\rho}{1-\rho}.
+\end{aligned}
 $$
 
 ### A.4 Aggregate Burden Approximation
@@ -1041,26 +1050,29 @@ $$
 Approximate burden ratio:
 
 $$
+\begin{aligned}
 \frac{L_t}{B_t}
-\approx
-qm\sum_{j=1}^{K}\frac{\rho^{j-1}}{G^j}.
+&\approx qm\sum_{j=1}^{K}\frac{\rho^{j-1}}{G^j}.
+\end{aligned}
 $$
 
 Infinite-horizon upper bound:
 
 $$
+\begin{aligned}
 \frac{L_t}{B_t}
-\leq
-\frac{qm}{G-\rho}.
+&\leq \frac{qm}{G-\rho}.
+\end{aligned}
 $$
 
 If the first post-departure claim receives $R_i\rho$, as in the EVM
 convention:
 
 $$
+\begin{aligned}
 \frac{L_t}{B_t}
-\leq
-\frac{qm\rho}{G-\rho}.
+&\leq \frac{qm\rho}{G-\rho}.
+\end{aligned}
 $$
 
 ## Appendix B: Simulation Assumptions
